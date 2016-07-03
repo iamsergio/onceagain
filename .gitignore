@@ -1,0 +1,6 @@
+onceagain.pro.user
+*.o
+Makefile
+/onceagain
+moc_*cpp
+qrc_resources.cpp
