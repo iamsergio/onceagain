@@ -10,7 +10,7 @@ Action {
     property var includes: []
 
     property string cppFolder: ""
-    property string headerFolder: ""
+    property string headerFolder: cppFolder
     property string licenseHeader: ""
     property string ctorArguments: ""
     property string implCtorArguments: ""
