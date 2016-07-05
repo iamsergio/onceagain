@@ -30,6 +30,7 @@ class QStandardItem;
 enum UserRole {
     ScriptRole = Qt::UserRole,
     FolderPathRole,
+    ScriptPathRole,
     IsFolder
 };
 
@@ -44,6 +45,9 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     QVariant data(const QModelIndex &index, int role) const override;
+
+    bool remove(const QModelIndex &);
+    bool isFolder(const QModelIndex &) const;
 
 private:
     void loadScripts(const QString &folder, QStandardItem *parent);

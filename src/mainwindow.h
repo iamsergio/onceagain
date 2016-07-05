@@ -32,12 +32,17 @@ class ScriptModel;
 class ScriptProxyModel;
 class QLabel;
 class QTextEdit;
+class QContextMenuEvent;
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit MainWindow(Kernel *sb, QWidget *parent = nullptr);
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *ev) override;
+
 private:
     void openFileExplorer(QString path);
     void openTemplatesDir();

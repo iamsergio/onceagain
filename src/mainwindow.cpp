@@ -43,6 +43,7 @@
 #include <QApplication>
 #include <QInputDialog>
 #include <QHeaderView>
+#include <QContextMenuEvent>
 
 static QTextEdit *s_logViewer = nullptr;
 
@@ -185,6 +186,23 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     connect(openScriptsDir, &QAction::triggered, this, &MainWindow::openScriptsDir);
     connect(openTemplateDir, &QAction::triggered, this, &MainWindow::openTemplatesDir);
     setMenuBar(menubar);
+}
+
+void MainWindow::contextMenuEvent(QContextMenuEvent *ev)
+{
+    QModelIndex index = m_scriptView->indexAt(m_scriptView->viewport()->mapFromGlobal(ev->globalPos()));
+    QModelIndex sourceIndex = m_scriptProxyModel->mapToSource(index);
+    if (!sourceIndex.isValid())
+        return;
+
+    QMenu menu(this);
+
+    QAction *del = menu.addAction("Delete");
+    connect(del, &QAction::triggered, [this, sourceIndex] {
+        m_kernel->scriptModel()->remove(sourceIndex);
+    });
+
+    menu.exec(QCursor::pos());
 }
 
 void MainWindow::openFileExplorer(QString path)
