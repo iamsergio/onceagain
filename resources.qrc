@@ -4,5 +4,6 @@
     <file>src/actions/qml/CreateQObject.qml</file>
     <file>templates/cpp/class.h</file>
     <file>templates/cpp/class.cpp</file>
+    <file>onceagain.png</file>
 </qresource>
 </RCC>

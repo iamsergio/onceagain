@@ -35,6 +35,7 @@ static QString scriptsFolderPath()
 int main(int argv, char **argc)
 {
     QApplication app(argv, argc);
+    app.setWindowIcon(QIcon(":/onceagain.png"));
 
     const QString baseTarget = app.arguments().size() < 2 ? QString(QLatin1Char('.'))
                                                           : app.arguments().at(1);
