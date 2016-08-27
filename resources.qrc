@@ -2,6 +2,7 @@
 <qresource prefix="/">
     <file>src/actions/qml/CreateClass.qml</file>
     <file>src/actions/qml/CreateQObject.qml</file>
+    <file>src/actions/qml/CreateQWidget.qml</file>
     <file>templates/cpp/class.h</file>
     <file>templates/cpp/class.cpp</file>
     <file>onceagain.png</file>
