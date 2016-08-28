@@ -6,6 +6,8 @@
     <file>src/actions/qml/CreateQSortFilterProxyModel.qml</file>
     <file>templates/cpp/class.h</file>
     <file>templates/cpp/class.cpp</file>
+    <file>templates/qt/models/QSortFilterProxyModel.h</file>
+    <file>templates/qt/models/QSortFilterProxyModel.cpp</file>
     <file>onceagain.png</file>
 </qresource>
 </RCC>
