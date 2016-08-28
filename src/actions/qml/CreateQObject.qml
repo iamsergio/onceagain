@@ -6,8 +6,8 @@ CreateClass {
     macros: "Q_OBJECT"
     ctorArguments: "QObject *parent = nullptr"
     implCtorArguments: "QObject *parent"
-    ctorInitList: "QObject(parent)"
+    ctorInitList: "%1(parent)".arg(baseClass)
     baseClass: "QObject"
-    includes: [ "<QObject>" ]
+    includes: [ "<%1>".arg(baseClass) ]
     explicit: true
 }
