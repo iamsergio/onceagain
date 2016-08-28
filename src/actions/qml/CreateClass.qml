@@ -54,7 +54,7 @@ Action {
 
     function explicitText()
     {
-        return root.explicit ? "explicit" : ""
+        return root.explicit ? "explicit " : ""
     }
 
     function ctorInitListText()
