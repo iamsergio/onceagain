@@ -27,16 +27,16 @@ class OpenEditor : public RunCommand
 {
     Q_OBJECT
     Q_PROPERTY(QString command READ command CONSTANT)
-    Q_PROPERTY(QUrl filename READ filename WRITE setFilename NOTIFY filenameChanged)
+    Q_PROPERTY(QUrl fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
 public:
     explicit OpenEditor(QObject *parent = nullptr);
 
-    void setFilename(const QUrl &);
-    QUrl filename() const;
+    void setFileName(const QUrl &);
+    QUrl fileName() const;
 
 Q_SIGNALS:
     void commandChanged();
-    void filenameChanged();
+    void fileNameChanged();
 
 private:
     QString editorCommand() const;
