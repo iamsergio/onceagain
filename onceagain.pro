@@ -13,6 +13,7 @@ SOURCES += src/main.cpp \
            src/actions/createfolderaction.cpp \
            src/actions/createfileaction.cpp \
            src/actions/openeditor.cpp \
+           src/actions/openexplorer.cpp \
            src/actions/removedirectory.cpp \
            src/actions/removefileaction.cpp \
            src/actions/runcommand.cpp \
@@ -32,6 +33,7 @@ HEADERS += src/action.h \
            src/actions/createfolderaction.h \
            src/actions/createfileaction.h \
            src/actions/openeditor.h \
+           src/actions/openexplorer.h \
            src/actions/removedirectory.h \
            src/actions/removefileaction.h \
            src/actions/runcommand.h \

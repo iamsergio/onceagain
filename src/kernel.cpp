@@ -24,6 +24,7 @@
 #include "actions/removedirectory.h"
 #include "actions/removefileaction.h"
 #include "actions/openeditor.h"
+#include "actions/openexplorer.h"
 
 #include "fileutils.h"
 #include "stringutils.h"
@@ -48,6 +49,7 @@ static void registerTypes()
     qmlRegisterType<RemoveFileAction>("OnceAgain", 1, 0, "RemoveFile");
     qmlRegisterType<RunCommand>("OnceAgain", 1, 0, "RunCommand");
     qmlRegisterType<OpenEditor>("OnceAgain", 1, 0, "OpenEditor");
+    qmlRegisterType<OpenExplorer>("OnceAgain", 1, 0, "OpenExplorer");
 }
 
 /** static */
