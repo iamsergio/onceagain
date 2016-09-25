@@ -20,6 +20,8 @@
 #include "createfolderaction.h"
 
 #include <QDir>
+#include <QFileInfo>
+#include <QProcess>
 
 CreateFolderAction::CreateFolderAction(QObject *parent)
     : Action(parent)
@@ -39,17 +41,50 @@ void CreateFolderAction::setFolderName(const QString &folderName)
     }
 }
 
+QUrl CreateFolderAction::copyFrom() const
+{
+    return m_copyFrom;
+}
+
+void CreateFolderAction::setCopyFrom(const QUrl &copyFrom)
+{
+    if (m_copyFrom != copyFrom) {
+        m_copyFrom = copyFrom;
+        emit copyFromChanged();
+    }
+}
+
 bool CreateFolderAction::execute()
 {
     if (m_folderName.isEmpty()) {
-        qWarning() << Q_FUNC_INFO << "foldername is emptyy";
+        qWarning() << Q_FUNC_INFO << "foldername is empty";
         return false;
+    }
+
+    const QString copyFrom = m_copyFrom.toLocalFile();
+    if (m_copyFrom.isValid()) {
+        QFileInfo info(copyFrom);
+        if (!info.exists()) {
+            qWarning() << Q_FUNC_INFO << "Dir doesn't exist" << copyFrom;
+            return false;
+        } else if (!info.isDir()) {
+            qWarning() << Q_FUNC_INFO << "Path isn't a directory" << copyFrom;
+            return false;
+        }
     }
 
     QDir dir;
     if (!dir.mkpath(m_folderName)) {
         qWarning() << "Error creating" << m_folderName;
         return false;
+    }
+
+    if (m_copyFrom.isValid()) {
+        QProcess process;
+        QString command = QStringLiteral("rsync -av %1/ %2/").arg(copyFrom, m_folderName);
+        qDebug() << "Running blocking command" << command;
+        process.start(command);
+        process.waitForFinished();
     }
 
     qDebug() << "Created" << m_folderName;

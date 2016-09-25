@@ -21,25 +21,32 @@
 #define CREATEFOLDER_ACTION_H
 
 #include "action.h"
+#include <QUrl>
 
 class CreateFolderAction : public Action
 {
     Q_OBJECT
     Q_PROPERTY(QString folderName READ folderName WRITE setFolderName NOTIFY folderNameChanged USER true)
+    Q_PROPERTY(QUrl copyFrom READ copyFrom WRITE setCopyFrom NOTIFY copyFromChanged USER true);
 public:
     explicit CreateFolderAction(QObject *parent = nullptr);
 
     QString folderName() const;
     void setFolderName(const QString &);
 
+    QUrl copyFrom() const;
+    void setCopyFrom(const QUrl &);
+
 Q_SIGNALS:
     void folderNameChanged();
+    void copyFromChanged();
 
 protected:
     bool execute() override;
 
 private:
     QString m_folderName;
+    QUrl m_copyFrom;
 };
 
 #endif
