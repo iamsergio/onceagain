@@ -208,7 +208,7 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *ev)
 void MainWindow::openFileExplorer(QString path)
 {
     QFileInfo pathInfo(path);
-    path = pathInfo.absoluteFilePath(); // Cleanup path, remove double //
+    path = QDir::toNativeSeparators(pathInfo.absoluteFilePath()); // Cleanup path, remove double // and convert to native
 
     QString fileExplorerCommand = m_kernel->externalFileExplorer();
     if (fileExplorerCommand.isEmpty()) {
@@ -279,7 +279,13 @@ void MainWindow::createNewScript()
         name = parentFolder + QStringLiteral("/%1").arg(name);
     }
 
-    runCommand(editorCommand + " " + name);
+    if (editorCommand.contains("%1")) {
+        editorCommand = editorCommand.arg(name);
+    } else {
+        editorCommand = editorCommand + " " + name;
+    }
+
+    runCommand(editorCommand);
 }
 
 void MainWindow::createNewScriptFolder()

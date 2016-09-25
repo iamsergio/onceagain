@@ -45,5 +45,5 @@ QUrl OpenExplorer::path() const
 
 QString OpenExplorer::explorerCommand() const
 {
-    return Kernel::instance()->externalFileExplorer().arg(path().toLocalFile());
+    return Kernel::instance()->externalFileExplorer().arg(QDir::toNativeSeparators(path().toLocalFile()));
 }
