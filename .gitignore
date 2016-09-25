@@ -5,3 +5,5 @@ Makefile
 moc_*cpp
 qrc_resources.cpp
 .qmake.stash
+/release
+Makefile.*
