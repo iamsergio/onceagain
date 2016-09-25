@@ -40,8 +40,8 @@ int main(int argv, char **argc)
     const QString baseTarget = app.arguments().size() < 2 ? QString(QLatin1Char('.'))
                                                           : app.arguments().at(1);
 
-    Kernel kernel(scriptsFolderPath(), baseTarget);
-    MainWindow mw(&kernel);
+    auto kernel = Kernel::create(scriptsFolderPath(), baseTarget);
+    MainWindow mw(kernel);
     mw.show();
 
     return app.exec();

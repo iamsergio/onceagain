@@ -33,7 +33,8 @@ class Kernel : public QObject
 {
     Q_OBJECT
 public:
-    explicit Kernel(const QString &scriptsFolder, const QString &baseTarget, QObject *parent = 0);
+    static Kernel* create(const QString &scriptsFolder, const QString &baseTarget, QObject *parent = nullptr);
+    static Kernel* instance();
 
     FileUtils *fileUtils() const;
     StringUtils *stringUtils() const;
@@ -55,6 +56,7 @@ Q_SIGNALS:
     void baseTargetChanged(const QString &);
 
 private:
+    explicit Kernel(const QString &scriptsFolder, const QString &baseTarget, QObject *parent = 0);
     void ensureFoldersExist();
     void ensureFolderExists(const QString &path);
     const QString m_scriptsFolder;

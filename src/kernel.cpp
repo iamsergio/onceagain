@@ -36,6 +36,8 @@
 #include <QFileInfo>
 #include <QDir>
 
+static Kernel *s_kernel = nullptr;
+
 static void registerTypes()
 {
     qmlRegisterType<Action>("OnceAgain", 1, 0, "Action");
@@ -44,6 +46,23 @@ static void registerTypes()
     qmlRegisterType<RemoveDirectory>("OnceAgain", 1, 0, "RemoveDirectory");
     qmlRegisterType<RemoveFileAction>("OnceAgain", 1, 0, "RemoveFile");
     qmlRegisterType<RunCommand>("OnceAgain", 1, 0, "RunCommand");
+}
+
+/** static */
+Kernel* Kernel::create(const QString &scriptsFolder, const QString &baseTarget, QObject *parent)
+{
+    if (s_kernel) {
+        qWarning() << "A Kernel instance already exists";
+        return s_kernel;
+    }
+
+    s_kernel = new Kernel(scriptsFolder, baseTarget, parent);
+    return s_kernel;
+}
+
+Kernel* Kernel::instance()
+{
+    return s_kernel;
 }
 
 Kernel::Kernel(const QString &scriptsFolder, const QString &baseTarget, QObject *parent)
