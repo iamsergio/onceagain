@@ -29,7 +29,7 @@ OpenEditor::OpenEditor(QObject *parent)
     setCommand(editorCommand());
 }
 
-void OpenEditor::setFilename(const QString &filename)
+void OpenEditor::setFilename(const QUrl &filename)
 {
     if (m_filename != filename) {
         m_filename = filename;
@@ -38,12 +38,12 @@ void OpenEditor::setFilename(const QString &filename)
     }
 }
 
-QString OpenEditor::filename() const
+QUrl OpenEditor::filename() const
 {
     return m_filename;
 }
 
 QString OpenEditor::editorCommand() const
 {
-    return Kernel::instance()->externalEditor().arg(filename());
+    return Kernel::instance()->externalEditor().arg(filename().toLocalFile());
 }

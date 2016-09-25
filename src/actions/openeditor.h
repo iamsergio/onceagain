@@ -21,17 +21,18 @@
 #define ONCE_AGAIN_OPENEDITOR_H
 
 #include "runcommand.h"
+#include <QUrl>
 
 class OpenEditor : public RunCommand
 {
     Q_OBJECT
     Q_PROPERTY(QString command READ command CONSTANT)
-    Q_PROPERTY(QString filename READ filename WRITE setFilename NOTIFY filenameChanged)
+    Q_PROPERTY(QUrl filename READ filename WRITE setFilename NOTIFY filenameChanged)
 public:
     explicit OpenEditor(QObject *parent = nullptr);
 
-    void setFilename(const QString &);
-    QString filename() const;
+    void setFilename(const QUrl &);
+    QUrl filename() const;
 
 Q_SIGNALS:
     void commandChanged();
@@ -39,7 +40,7 @@ Q_SIGNALS:
 
 private:
     QString editorCommand() const;
-    QString m_filename;
+    QUrl m_filename;
 };
 
 #endif
