@@ -90,7 +90,7 @@ bool Script::execute() const
         if (m_rootAction->assertBaseTargetIsFolder()) {
             QDir dir(m_kernel->baseTarget());
             if (!dir.exists()) {
-                qWarning() << Q_FUNC_INFO << "Couldn't find no folder named" << m_kernel->baseTarget();
+                qWarning() << Q_FUNC_INFO << "Couldn't find no folder named" << baseTarget();
                 return false;
             }
         }
@@ -104,7 +104,7 @@ bool Script::execute() const
 void Script::loadSourceQml()
 {
     auto engine = new QQmlEngine(this);
-    engine->rootContext()->setContextProperty("_baseTarget", m_kernel->baseTarget());
+    engine->rootContext()->setContextProperty("_baseTarget", QString());
     engine->rootContext()->setContextProperty("_dataFolder", m_kernel->scriptsFolder());
     engine->rootContext()->setContextProperty("_templatesFolder", m_kernel->scriptsFolder() + QStringLiteral("/templates/"));
     engine->rootContext()->setContextProperty("_file", m_kernel->fileUtils());
@@ -112,7 +112,27 @@ void Script::loadSourceQml()
     engine->rootContext()->setContextProperty("_cmake", m_kernel->cmakeUtils());
     auto rootComponent = new QQmlComponent(engine, m_sourceQml);
     m_rootAction = qobject_cast<Action*>(rootComponent->create());
+    engine->rootContext()->setContextProperty("_baseTarget", baseTarget()); // Don't change order
 
     if (!m_rootAction)
         qWarning() << Q_FUNC_INFO << rootComponent->errorString();
 }
+
+QString Script::baseTarget() const
+{
+    // Check if it was passed through command, like $ onceagain ./myFolder
+    QString userSuppliedBaseTarget = m_kernel->baseTarget();
+    if (!userSuppliedBaseTarget.isEmpty())
+        return userSuppliedBaseTarget;
+
+    // Nope, lets try the script's default baseTarget
+    if (m_rootAction) {
+        QString defaultBaseTarget = m_rootAction->property("defaultBaseTarget").toUrl().toLocalFile();
+        if (!defaultBaseTarget.isEmpty())
+            return defaultBaseTarget;
+    }
+
+    // Default is current directory
+    return QStringLiteral(".");
+}
+

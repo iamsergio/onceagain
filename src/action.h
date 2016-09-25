@@ -29,6 +29,7 @@ class Action : public QObject
     Q_PROPERTY(Action* abortIfPreviousFailed READ abortIfPreviousFailed WRITE setAbortIfPreviousFailed NOTIFY abortIfPreviousFailedChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(QUrl defaultBaseTarget READ defaultBaseTarget WRITE setDefaultBaseTarget NOTIFY defaultBaseTargetChanged)
     Q_PROPERTY(QQmlListProperty<Action> childActions READ childActions)
     Q_PROPERTY(bool assertBaseTargetIsFolder READ assertBaseTargetIsFolder WRITE setAssertBaseTargetIsFolder NOTIFY assertBaseTargetIsFolderChanged)
     Q_PROPERTY(bool assertBaseTargetIsFile READ assertBaseTargetIsFile WRITE setAssertBaseTargetIsFile NOTIFY assertBaseTargetIsFileChanged)
@@ -60,6 +61,9 @@ public:
     QStringList hiddenProperties() const;
     void setHiddenProperties(const QStringList &);
 
+    QUrl defaultBaseTarget() const;
+    void setDefaultBaseTarget(const QUrl &);
+
     virtual bool execute();
 
 Q_SIGNALS:
@@ -70,6 +74,7 @@ Q_SIGNALS:
     void descriptionChanged();
     void enabledChanged();
     void hiddenPropertiesChanged();
+    void defaultBaseTargetChanged();
 
 private:
     Action *m_abortIfPreviousFailed = nullptr;
@@ -81,6 +86,7 @@ private:
     QList<Action*> m_childActions;
     bool m_enabled = true;
     QStringList m_hiddenProperties;
+    QUrl m_defaultBaseTarget;
 };
 
 #endif

@@ -339,7 +339,11 @@ void MainWindow::openScriptExternally(const QModelIndex &index)
 
 void MainWindow::updateBaseTargetLabel()
 {
-    QFileInfo info(m_kernel->baseTarget());
+    Script *script = selectedScript();
+    QString baseTarget = script ? script->baseTarget() : m_kernel->baseTarget();
+    if (baseTarget.isEmpty())
+        baseTarget = QStringLiteral(".");
+    QFileInfo info(baseTarget);
     QString absolutePath = info.absoluteFilePath();
     if (info.isDir())
         absolutePath += "/";
@@ -371,6 +375,7 @@ void MainWindow::onScriptSelected()
     m_executeButton->setEnabled(script != nullptr);
     setupPropertyTable(script);
     updateDescription();
+    updateBaseTargetLabel();
 }
 
 void MainWindow::setupScriptView()

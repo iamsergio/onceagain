@@ -45,6 +45,7 @@ public:
     Action * rootAction() const;
     QString description() const;
     QUrl sourceUrl() const;
+    QString baseTarget() const;
 
     bool execute() const;
 

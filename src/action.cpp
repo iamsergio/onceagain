@@ -160,3 +160,16 @@ QQmlListProperty<Action> Action::childActions()
 {
     return QQmlListProperty<Action>(this, m_childActions);
 }
+
+QUrl Action::defaultBaseTarget() const
+{
+    return m_defaultBaseTarget;
+}
+
+void Action::setDefaultBaseTarget(const QUrl &url)
+{
+    if (m_defaultBaseTarget != url) {
+        m_defaultBaseTarget = url;
+        emit defaultBaseTargetChanged();
+    }
+}
