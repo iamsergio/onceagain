@@ -45,5 +45,7 @@ QUrl OpenExplorer::path() const
 
 QString OpenExplorer::explorerCommand() const
 {
-    return Kernel::instance()->externalFileExplorer().arg(QDir::toNativeSeparators(path().toLocalFile()));
+    const auto &cmd = Kernel::instance()->externalFileExplorer();
+    return cmd.contains(QLatin1String("%1")) ? cmd.arg(QDir::toNativeSeparators(path().toLocalFile()))
+                                             : cmd;
 }

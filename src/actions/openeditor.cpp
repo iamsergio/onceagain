@@ -45,5 +45,8 @@ QUrl OpenEditor::fileName() const
 
 QString OpenEditor::editorCommand() const
 {
-    return Kernel::instance()->externalEditor().arg(QDir::toNativeSeparators(fileName().toLocalFile()));
+    auto &cmd = Kernel::instance()->externalEditor();
+
+    return cmd.contains(QLatin1String("%1")) ? cmd.arg(QDir::toNativeSeparators(fileName().toLocalFile()))
+                                             : cmd;
 }
