@@ -62,7 +62,7 @@ bool CreateFolderAction::execute()
     }
 
     const QString copyFrom = m_copyFrom.toLocalFile();
-    if (m_copyFrom.isValid()) {
+    if (!m_copyFrom.isEmpty()) {
         QFileInfo info(copyFrom);
         if (!info.exists()) {
             qWarning() << Q_FUNC_INFO << "Dir doesn't exist" << copyFrom;
@@ -79,7 +79,7 @@ bool CreateFolderAction::execute()
         return false;
     }
 
-    if (m_copyFrom.isValid()) {
+    if (!m_copyFrom.isEmpty()) {
         QProcess process;
         QString command = QStringLiteral("rsync -av %1/ %2/").arg(copyFrom, m_folderName);
         qDebug() << "Running blocking command" << command;
