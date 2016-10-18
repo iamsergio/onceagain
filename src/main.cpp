@@ -24,6 +24,7 @@
 #include <QDebug>
 #include <QString>
 #include <QStandardPaths>
+#include <QFileInfo>
 
 static QString scriptsFolderPath()
 {
@@ -37,8 +38,15 @@ int main(int argv, char **argc)
     QApplication app(argv, argc);
     app.setWindowIcon(QIcon(":/onceagain.png"));
 
-    const QString baseTarget = app.arguments().size() < 2 ? QString()
-                                                          : app.arguments().at(1);
+    QString baseTarget = app.arguments().size() < 2 ? QString()
+                                                    : app.arguments().at(1);
+
+    if (!baseTarget.isEmpty()) {
+        QFileInfo info(baseTarget);
+        baseTarget = info.absoluteFilePath();
+        if (info.isDir())
+            baseTarget += "/";
+    }
 
     auto kernel = Kernel::create(scriptsFolderPath(), baseTarget);
     MainWindow mw(kernel);

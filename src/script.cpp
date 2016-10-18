@@ -112,6 +112,7 @@ void Script::loadSourceQml()
     engine->rootContext()->setContextProperty("_cmake", m_kernel->cmakeUtils());
     auto rootComponent = new QQmlComponent(engine, m_sourceQml);
     m_rootAction = qobject_cast<Action*>(rootComponent->create());
+
     engine->rootContext()->setContextProperty("_baseTarget", baseTarget()); // Don't change order
 
     if (!m_rootAction)
@@ -132,7 +133,9 @@ QString Script::baseTarget() const
             return defaultBaseTarget;
     }
 
+    QFileInfo fi(QStringLiteral("."));
+
     // Default is current directory
-    return QStringLiteral(".");
+    return fi.absoluteFilePath();
 }
 
