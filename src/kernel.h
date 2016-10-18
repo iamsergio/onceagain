@@ -44,7 +44,6 @@ public:
     QString templatesFolder() const;
 
     QString baseTarget() const;
-    void setBaseTarget(const QString &);
 
     ScriptModel *scriptModel() const;
     void loadScripts();

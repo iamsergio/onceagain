@@ -115,14 +115,6 @@ QString Kernel::baseTarget() const
     return m_baseTarget;
 }
 
-void Kernel::setBaseTarget(const QString &target)
-{
-    if (m_baseTarget != target) {
-        m_baseTarget = target;
-        emit baseTargetChanged(target);
-    }
-}
-
 ScriptModel *Kernel::scriptModel() const
 {
     return m_scriptModel;
