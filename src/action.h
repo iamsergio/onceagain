@@ -77,6 +77,7 @@ Q_SIGNALS:
     void defaultBaseTargetChanged();
 
 private:
+    bool canExecute() const;
     Action *m_abortIfPreviousFailed = nullptr;
     QString m_name;
     QString m_description;

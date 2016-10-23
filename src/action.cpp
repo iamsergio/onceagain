@@ -125,6 +125,9 @@ void Action::setHiddenProperties(const QStringList &props)
 
 bool Action::execute()
 {
+    if (!canExecute())
+        return false;
+
     bool success = true;
     int numActionsRun = 0;
     for (Action *action : m_childActions) {
@@ -154,6 +157,23 @@ bool Action::execute()
     }
 
     return success;
+}
+#include <QMetaMethod>
+bool Action::canExecute() const
+{
+    // The QML file might have a JavaScript function called canExecute(), which does some validations
+
+    const bool methodExists = metaObject()->indexOfMethod("canExecute()") != -1;
+    if (methodExists) {
+        QVariant returnedValue;
+        const bool methodWasCalled = QMetaObject::invokeMethod(const_cast<Action*>(this),
+                                                               "canExecute",
+                                                               Q_RETURN_ARG(QVariant, returnedValue));
+        return methodWasCalled && returnedValue.toBool();
+    } else {
+        // No validations were needed
+        return true;
+    }
 }
 
 QQmlListProperty<Action> Action::childActions()
