@@ -20,6 +20,7 @@
 #include "action.h"
 
 #include <QDebug>
+#include <QMetaMethod>
 
 Action::Action(QObject *parent)
     : QObject(parent)
@@ -158,7 +159,7 @@ bool Action::execute()
 
     return success;
 }
-#include <QMetaMethod>
+
 bool Action::canExecute() const
 {
     // The QML file might have a JavaScript function called canExecute(), which does some validations
