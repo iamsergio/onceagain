@@ -65,10 +65,10 @@ bool CreateFolderAction::execute()
     if (!m_copyFrom.isEmpty()) {
         QFileInfo info(copyFrom);
         if (!info.exists()) {
-            qWarning() << Q_FUNC_INFO << "Dir doesn't exist" << copyFrom;
+            qWarning() << Q_FUNC_INFO << "copyFrom dir doesn't exist" << copyFrom;
             return false;
         } else if (!info.isDir()) {
-            qWarning() << Q_FUNC_INFO << "Path isn't a directory" << copyFrom;
+            qWarning() << Q_FUNC_INFO << "copyFrom path isn't a directory" << copyFrom;
             return false;
         }
     }
