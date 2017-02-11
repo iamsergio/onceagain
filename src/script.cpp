@@ -130,12 +130,11 @@ QString Script::baseTarget() const
     if (m_rootAction) {
         QString defaultBaseTarget = m_rootAction->property("defaultBaseTarget").toUrl().toLocalFile();
         if (!defaultBaseTarget.isEmpty())
-            return defaultBaseTarget;
+            return QDir::fromNativeSeparators(defaultBaseTarget);
     }
 
     QFileInfo fi(QStringLiteral("."));
 
     // Default is current directory
-    return fi.absoluteFilePath();
+    return QDir::fromNativeSeparators(fi.absoluteFilePath());
 }
-
