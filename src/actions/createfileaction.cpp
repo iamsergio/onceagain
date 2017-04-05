@@ -84,7 +84,7 @@ bool CreateFileAction::createNewFile()
 
     QFile file(m_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qWarning() << "Failed to open file" << file.errorString();
+        qWarning() << "Failed to open file" << m_fileName << "; error=" << file.errorString();
         return false;
     }
 
