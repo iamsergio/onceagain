@@ -197,8 +197,13 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *ev)
 
     QMenu menu(this);
 
-    QAction *del = menu.addAction("Delete");
-    connect(del, &QAction::triggered, [this, sourceIndex] {
+    QAction *action = menu.addAction("Edit");
+    connect(action, &QAction::triggered, [this, sourceIndex] {
+        openScriptExternally(sourceIndex);
+    });
+
+    action = menu.addAction("Delete");
+    connect(action, &QAction::triggered, [this, sourceIndex] {
         m_kernel->scriptModel()->remove(sourceIndex);
     });
 
