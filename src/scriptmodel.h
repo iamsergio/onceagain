@@ -46,6 +46,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
+    Script *script(const QModelIndex &) const;
     bool remove(const QModelIndex &);
     bool isFolder(const QModelIndex &) const;
 

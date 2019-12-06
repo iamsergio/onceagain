@@ -67,6 +67,16 @@ QVariant ScriptModel::data(const QModelIndex &index, int role) const
     return QStandardItemModel::data(index, role);
 }
 
+Script* ScriptModel::script(const QModelIndex &index) const
+{
+    if (!index.isValid() || index.model() != this) {
+        qWarning() << Q_FUNC_INFO << "Invalid index";
+        return nullptr;
+    }
+
+    return index.data(ScriptRole).value<Script*>();
+}
+
 bool ScriptModel::remove(const QModelIndex &index)
 {
     if (!index.isValid() || index.model() != this) {
