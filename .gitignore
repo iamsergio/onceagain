@@ -7,3 +7,5 @@ qrc_resources.cpp
 .qmake.stash
 /release
 Makefile.*
+moc_*
+*pro.user.*
