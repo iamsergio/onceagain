@@ -14,4 +14,6 @@ CMakeFiles
 CMakeCache.txt
 cmake_install.cmake
 mocs_compilation.cpp
+.ninja*
+*.ninja
 
