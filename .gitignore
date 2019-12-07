@@ -17,3 +17,4 @@ mocs_compilation.cpp
 .ninja*
 *.ninja
 /bin
+CMakeLists.txt.user
