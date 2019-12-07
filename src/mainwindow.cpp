@@ -23,6 +23,8 @@
 #include "scriptmodel.h"
 #include "scriptproxymodel.h"
 
+#include <kddockwidgets/DockWidget.h>
+
 #include <QTreeView>
 #include <QTableWidget>
 #include <QHBoxLayout>
@@ -35,7 +37,6 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QTextEdit>
-#include <QDockWidget>
 #include <QMutex>
 #include <QMutexLocker>
 #include <QProcess>
@@ -101,7 +102,7 @@ public:
 };
 
 MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
-    : QMainWindow(parent)
+    : KDDockWidgets::MainWindow("mainwindow", {}, parent)
     , m_kernel(kernel)
     , m_scriptProxyModel(new ScriptProxyModel(kernel->baseTarget(), this))
     , m_descriptionLabel(new QLabel(this))
@@ -110,22 +111,21 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
 {
     resize(800, 600);
     m_scriptProxyModel->setSourceModel(m_kernel->scriptModel());
-    m_logViewer->setMaximumHeight(100);
     s_logViewer = m_logViewer;
     m_logViewer->setTextInteractionFlags(Qt::TextSelectableByMouse);
     qInstallMessageHandler(myMessageOutput);
     m_kernel->loadScripts();
 
-    auto central = new QWidget();
-    auto outterLayout = new QVBoxLayout(central);
+    auto mainwidget = new QWidget();
+    auto outterLayout = new QVBoxLayout(mainwidget);
     auto layout = new QHBoxLayout();
     outterLayout->addWidget(m_baseTargetLabel);
     outterLayout->addLayout(layout);
-    m_scriptView = new QTreeView(central);
+    m_scriptView = new QTreeView(mainwidget);
     m_scriptView->setModel(m_scriptProxyModel);
     m_scriptView->setAlternatingRowColors(true);
     m_scriptView->header()->hide();
-    m_propertyTable = new QTableWidget(central);
+    m_propertyTable = new QTableWidget(mainwidget);
     m_propertyTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     connect(m_propertyTable, &QTableWidget::itemDoubleClicked, this, &MainWindow::onPropertyCellDoubleClicked);
 
@@ -142,12 +142,16 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     layout->addWidget(groupBox);
     outterLayout->addWidget(m_executeButton);
 
-    auto bottomdock = new QDockWidget(tr("Log"), this);
+    auto bottomdock = new KDDockWidgets::DockWidget("log");
+    bottomdock->setTitle(tr("Log"));
     bottomdock->setWidget(m_logViewer);
-    bottomdock->setAllowedAreas(Qt::BottomDockWidgetArea);
-    addDockWidget(Qt::BottomDockWidgetArea, bottomdock);
 
-    setCentralWidget(central);
+    auto maindock = new KDDockWidgets::DockWidget("main");
+    maindock->setTitle(tr("Onceagain"));
+    maindock->setWidget(mainwidget);
+
+    addDockWidget(maindock, KDDockWidgets::Location_OnTop);
+    addDockWidget(bottomdock, KDDockWidgets::Location_OnBottom);
 
     setupScriptView();
     onScriptSelected();

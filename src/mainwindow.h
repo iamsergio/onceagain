@@ -20,6 +20,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <kddockwidgets/MainWindow.h>
 #include <QMainWindow>
 
 class Script;
@@ -34,7 +35,7 @@ class QLabel;
 class QTextEdit;
 class QContextMenuEvent;
 
-class MainWindow : public QMainWindow
+class MainWindow : public KDDockWidgets::MainWindow
 {
     Q_OBJECT
 public:
