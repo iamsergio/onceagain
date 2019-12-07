@@ -9,3 +9,9 @@ qrc_resources.cpp
 Makefile.*
 moc_*
 *pro.user.*
+CMakeFiles
+*.qrc.depends
+CMakeCache.txt
+cmake_install.cmake
+mocs_compilation.cpp
+
