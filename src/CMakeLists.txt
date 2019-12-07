@@ -18,7 +18,7 @@ set(ONCEAGAIN_SRCS
     utils/fileutils.cpp
     utils/stringutils.cpp
 )
-
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 qt5_add_resources(RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../resources.qrc)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utils)
