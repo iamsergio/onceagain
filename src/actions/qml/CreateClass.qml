@@ -25,8 +25,10 @@ Action {
                        "licenseHeader", "ctorArguments", "includes", "explicit",
                        "baseClass", "ctorInitList", "macros", "implCtorArguments", "headerTemplate", "cppTemplate"]
     readonly property string filename: camelCaseFileName ? className : className.toLowerCase()
-    readonly property string headerFileName: filename + ".h"
-    readonly property string cppFileName: filename + ".cpp"
+    readonly property string headerFileName: filename.length > 0 ? filename + ".h"
+                                                                 : ""
+    readonly property string cppFileName: filename.length > 0 ? filename + ".cpp"
+                                                              : ""
     readonly property string includeGuard: className.toUpperCase()
 
     function includesText() {
