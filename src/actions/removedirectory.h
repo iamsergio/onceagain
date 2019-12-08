@@ -20,9 +20,9 @@
 #ifndef REMOVEDIRECTORY_H
 #define REMOVEDIRECTORY_H
 
-#include "action.h"
+#include "pythonaction.h"
 
-class RemoveDirectory : public Action
+class RemoveDirectory : public PythonAction
 {
     Q_OBJECT
     Q_PROPERTY(QString folderName READ folderName WRITE setFolderName NOTIFY folderNameChanged USER true)
@@ -40,9 +40,6 @@ public:
 Q_SIGNALS:
     void folderNameChanged();
     void removeItselfChanged();
-
-protected:
-    bool execute() override;
 
 private:
     QString m_folderName;

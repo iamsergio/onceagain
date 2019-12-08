@@ -83,6 +83,9 @@ Kernel::Kernel(const QString &scriptsFolder, const QString &baseTarget, QObject 
 {
     registerTypes();
     ensureFoldersExist();
+
+    // So python scripts can reach it easily. Needs to be QObject* since we don't have a converter?
+    qApp->setProperty("_kernel", QVariant::fromValue<QObject*>(this));
 }
 
 FileUtils *Kernel::fileUtils() const
@@ -133,6 +136,19 @@ QString Kernel::externalEditor() const
 QString Kernel::externalFileExplorer() const
 {
     return m_externalFileExplorer;
+}
+
+Action *Kernel::currentAction() const
+{
+    return m_currentAction;
+}
+
+void Kernel::setCurrentAction(Action *action)
+{
+    if (action != m_currentAction) {
+        m_currentAction = action;
+        Q_EMIT currentActionChanged(m_currentAction);
+    }
 }
 
 void Kernel::ensureFoldersExist()

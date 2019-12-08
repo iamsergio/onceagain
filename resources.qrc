@@ -1,5 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/">
+    <file>src/common.py</file>
+    <file>src/actions/removedirectory.py</file>
     <file>src/actions/qml/CreateClass.qml</file>
     <file>src/actions/qml/CreateQObject.qml</file>
     <file>src/actions/qml/CreateQWidget.qml</file>

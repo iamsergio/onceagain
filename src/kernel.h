@@ -28,10 +28,13 @@ class QString;
 class FileUtils;
 class StringUtils;
 class ScriptModel;
+class Action;
 
 class Kernel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString externalEditor READ externalEditor CONSTANT)
+    Q_PROPERTY(QObject* currentAction READ currentAction NOTIFY currentActionChanged)
 public:
     static Kernel* create(const QString &scriptsFolder, const QString &baseTarget, QObject *parent = nullptr);
     static Kernel* instance();
@@ -51,8 +54,12 @@ public:
     QString externalEditor() const;
     QString externalFileExplorer() const;
 
+    Action *currentAction() const;
+    void setCurrentAction(Action *);
+
 Q_SIGNALS:
     void baseTargetChanged(const QString &);
+    void currentActionChanged(Action*);
 
 private:
     explicit Kernel(const QString &scriptsFolder, const QString &baseTarget, QObject *parent = 0);
@@ -67,6 +74,9 @@ private:
     const QString m_externalEditor;
     const QString m_externalFileExplorer;
     const QString m_templatesFolder;
+    Action *m_currentAction = nullptr;
 };
+
+Q_DECLARE_METATYPE(Kernel*)
 
 #endif

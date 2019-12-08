@@ -56,24 +56,12 @@ static bool removeRecursively(QDir &dir)
 }
 
 RemoveDirectory::RemoveDirectory(QObject *parent)
-    : Action(parent)
+    : PythonAction(QStringLiteral("removedirectory.py"), parent)
 {
 }
 
 RemoveDirectory::~RemoveDirectory()
 {
-}
-
-bool RemoveDirectory::execute()
-{
-    if (!m_folderName.startsWith("/") || m_folderName.size() == 1) {
-        qWarning() << "RemoveDirectory: Won't try to remove non-absolute path, it's dangerous for you";
-        return false;
-    }
-
-    QDir dir(m_folderName);
-    qDebug() << "Removing" << m_folderName << "...";
-    return m_removeItself ? dir.removeRecursively() : removeRecursively(dir);
 }
 
 QString RemoveDirectory::folderName() const

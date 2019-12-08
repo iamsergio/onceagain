@@ -5,6 +5,7 @@ set(ONCEAGAIN_SRCS
     actions/createfolderaction.cpp
     actions/openeditor.cpp
     actions/openexplorer.cpp
+    actions/pythonaction.cpp
     actions/removedirectory.cpp
     actions/removefileaction.cpp
     actions/runcommand.cpp
@@ -25,5 +26,6 @@ add_definitions(-DQT_NO_KEYWORDS)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utils)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${PYTHON_INCLUDE_DIRS})
 add_executable(onceagain ${ONCEAGAIN_SRCS} ${RESOURCES})
-target_link_libraries(onceagain Qt5::Widgets Qt5::Quick KDAB::kddockwidgets)
+target_link_libraries(onceagain Qt5::Widgets Qt5::Quick KDAB::kddockwidgets ${PYTHON_LIBRARIES})

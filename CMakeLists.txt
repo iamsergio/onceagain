@@ -5,6 +5,7 @@ project(onceagain VERSION 0.1 LANGUAGES CXX)
 find_package(KDDockWidgets REQUIRED)
 find_package(Qt5Widgets)
 find_package(Qt5Quick)
+find_package(PythonLibs REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 add_subdirectory(src)

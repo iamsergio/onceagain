@@ -20,11 +20,14 @@
 #include "kernel.h"
 #include "mainwindow.h"
 
+#include <Python.h>
+
 #include <QApplication>
 #include <QDebug>
 #include <QString>
 #include <QStandardPaths>
 #include <QFileInfo>
+#include <QScopeGuard>
 
 static QString scriptsFolderPath()
 {
@@ -35,6 +38,9 @@ static QString scriptsFolderPath()
 
 int main(int argv, char **argc)
 {
+    Py_Initialize();
+    auto cleanPython = qScopeGuard([] {Py_Finalize(); });
+
     QApplication app(argv, argc);
     app.setWindowIcon(QIcon(":/onceagain.png"));
 
