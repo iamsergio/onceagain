@@ -109,7 +109,7 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     , m_baseTargetLabel(new QLabel(this))
     , m_logViewer(new QTextEdit(this))
 {
-    resize(800, 600);
+    resize(900, 900);
     m_scriptProxyModel->setSourceModel(m_kernel->scriptModel());
     s_logViewer = m_logViewer;
     m_logViewer->setTextInteractionFlags(Qt::TextSelectableByMouse);
