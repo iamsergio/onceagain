@@ -179,8 +179,8 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     auto reloadAction = fileMenu->addAction(tr("Reload"));
     reloadAction->setShortcut(QKeySequence(QStringLiteral("F5")));
     auto quitAction = fileMenu->addAction(tr("Quit"));
-    auto openScriptsDir = toolsMenu->addAction(tr("Open scripts dir"));
-    auto openTemplateDir = toolsMenu->addAction(tr("Open templates dir"));
+    auto openScriptsDir = toolsMenu->addAction(tr("Open scripts dir..."));
+    auto openTemplateDir = toolsMenu->addAction(tr("Open templates dir..."));
     newAction->setIcon(QIcon::fromTheme("document-new"));
     newAction->setShortcut(QKeySequence(QStringLiteral("ctrl+N")));
     reloadAction->setIcon(QIcon::fromTheme("view-refresh"));
