@@ -36,6 +36,19 @@ static QString scriptsFolderPath()
                                   : QString::fromUtf8(scriptdirenv);
 }
 
+static QString absolutePath(const QString &path)
+{
+    QString absolute;
+    if (!path.isEmpty()) {
+        QFileInfo info(path);
+        absolute = info.absoluteFilePath();
+        if (info.isDir())
+            absolute += "/";
+    }
+
+    return absolute;
+}
+
 int main(int argv, char **argc)
 {
     Py_Initialize();
@@ -44,15 +57,9 @@ int main(int argv, char **argc)
     QApplication app(argv, argc);
     app.setWindowIcon(QIcon(":/onceagain.png"));
 
-    QString baseTarget = app.arguments().size() < 2 ? QString()
-                                                    : app.arguments().at(1);
+    const QString baseTarget = app.arguments().size() >= 2 ? absolutePath(app.arguments().at(1))
+                                                           : QString();
 
-    if (!baseTarget.isEmpty()) {
-        QFileInfo info(baseTarget);
-        baseTarget = info.absoluteFilePath();
-        if (info.isDir())
-            baseTarget += "/";
-    }
 
     auto kernel = Kernel::create(scriptsFolderPath(), baseTarget);
     MainWindow mw(kernel);
