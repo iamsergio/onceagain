@@ -33,6 +33,7 @@ class Action;
 class Kernel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString baseTarget READ baseTarget CONSTANT)
     Q_PROPERTY(QString externalEditor READ externalEditor CONSTANT)
     Q_PROPERTY(QObject* currentAction READ currentAction NOTIFY currentActionChanged)
 public:
@@ -66,7 +67,7 @@ private:
     void ensureFoldersExist();
     void ensureFolderExists(const QString &path);
     const QString m_scriptsFolder;
-    QString m_baseTarget;
+    const QString m_baseTarget;
     FileUtils *const m_fileUtils;
     StringUtils *const m_stringUtils;
     CMakeUtils *const m_cmakeUtils;
