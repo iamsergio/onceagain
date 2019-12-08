@@ -21,6 +21,8 @@ set(ONCEAGAIN_SRCS
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 qt5_add_resources(RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../resources.qrc)
 
+add_definitions(-DQT_NO_KEYWORDS)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utils)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_executable(onceagain ${ONCEAGAIN_SRCS} ${RESOURCES})

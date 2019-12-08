@@ -36,7 +36,7 @@ void RunCommand::setCommand(const QString &command)
 {
     if (command != m_command) {
         m_command = command;
-        emit commandChanged();
+        Q_EMIT commandChanged();
     }
 }
 
@@ -44,7 +44,7 @@ void RunCommand::setWorkingDirectory(const QString &dir)
 {
     if (dir != m_workingDirectory) {
         m_workingDirectory = dir;
-        emit workingDirectoryChanged();
+        Q_EMIT workingDirectoryChanged();
     }
 }
 
@@ -72,7 +72,7 @@ bool RunCommand::execute()
     }
 
     connect(process, static_cast<void (QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished), [this](int exitCode, QProcess::ExitStatus) {
-        emit processFinished(exitCode);
+        Q_EMIT processFinished(exitCode);
     });
 
     connect(this, &RunCommand::processFinished, process, &QObject::deleteLater);

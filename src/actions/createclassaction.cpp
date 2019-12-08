@@ -33,7 +33,7 @@ void CreateClassAction::setClassName(const QString &name)
 {
     if (name != m_className) {
         m_className = name;
-        emit classNameChanged();
+        Q_EMIT classNameChanged();
     }
 }
 
@@ -46,7 +46,7 @@ void CreateClassAction::setIncludeGuard(const QString &guard)
 {
     if (m_includeGuard != guard) {
         m_includeGuard = guard;
-        emit includeGuardChanged();
+        Q_EMIT includeGuardChanged();
     }
 }
 

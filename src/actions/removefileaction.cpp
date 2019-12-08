@@ -35,7 +35,7 @@ void RemoveFileAction::setFileName(const QString &fileName)
 {
     if (m_fileName != fileName) {
         m_fileName = fileName;
-        emit fileNameChanged();
+        Q_EMIT fileNameChanged();
     }
 }
 

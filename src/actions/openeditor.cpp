@@ -33,7 +33,7 @@ void OpenEditor::setFileName(const QUrl &filename)
 {
     if (m_filename != filename) {
         m_filename = filename;
-        emit fileNameChanged();
+        Q_EMIT fileNameChanged();
         setCommand(editorCommand());
     }
 }

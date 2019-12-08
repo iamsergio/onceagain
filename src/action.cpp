@@ -37,7 +37,7 @@ void Action::setName(const QString &name)
 {
     if (name != m_name) {
         m_name = name;
-        emit nameChanged();
+        Q_EMIT nameChanged();
     }
 }
 
@@ -45,7 +45,7 @@ void Action::setAssertBaseTargetIsFolder(bool assert)
 {
     if (assert != m_assertBaseTargetIsFolder) {
         m_assertBaseTargetIsFolder = assert;
-        emit assertBaseTargetIsFolderChanged();
+        Q_EMIT assertBaseTargetIsFolderChanged();
     }
 }
 
@@ -63,7 +63,7 @@ void Action::setAssertBaseTargetIsFile(bool assert)
 {
     if (assert != m_assertBaseTargetIsFile) {
         m_assertBaseTargetIsFile = assert;
-        emit assertBaseTargetIsFileChanged();
+        Q_EMIT assertBaseTargetIsFileChanged();
     }
 }
 
@@ -76,7 +76,7 @@ void Action::setAbortIfPreviousFailed(Action *action)
 {
     if (m_abortIfPreviousFailed != action) {
         m_abortIfPreviousFailed = action;
-        emit abortIfPreviousFailed();
+        Q_EMIT abortIfPreviousFailed();
     }
 }
 
@@ -94,7 +94,7 @@ void Action::setDescription(const QString &desc)
 {
     if (m_description != desc) {
         m_description = desc;
-        emit descriptionChanged();
+        Q_EMIT descriptionChanged();
     }
 }
 
@@ -107,7 +107,7 @@ void Action::setEnabled(bool enabled)
 {
     if (enabled != m_enabled) {
         m_enabled = enabled;
-        emit enabledChanged();
+        Q_EMIT enabledChanged();
     }
 }
 
@@ -120,7 +120,7 @@ void Action::setHiddenProperties(const QStringList &props)
 {
     if (m_hiddenProperties != props) {
         m_hiddenProperties = props;
-        emit hiddenPropertiesChanged();
+        Q_EMIT hiddenPropertiesChanged();
     }
 }
 
@@ -191,6 +191,6 @@ void Action::setDefaultBaseTarget(const QUrl &url)
 {
     if (m_defaultBaseTarget != url) {
         m_defaultBaseTarget = url;
-        emit defaultBaseTargetChanged();
+        Q_EMIT defaultBaseTargetChanged();
     }
 }

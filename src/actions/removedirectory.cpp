@@ -85,7 +85,7 @@ void RemoveDirectory::setFolderName(const QString &folderName)
 {
     if (m_folderName != folderName) {
         m_folderName = folderName;
-        emit folderNameChanged();
+        Q_EMIT folderNameChanged();
     }
 }
 
@@ -98,6 +98,6 @@ void RemoveDirectory::setRemoveItself(bool remove)
 {
     if (m_removeItself != remove) {
         m_removeItself = remove;
-        emit removeItselfChanged();
+        Q_EMIT removeItselfChanged();
     }
 }

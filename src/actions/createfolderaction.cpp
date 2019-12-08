@@ -37,7 +37,7 @@ void CreateFolderAction::setFolderName(const QString &folderName)
 {
     if (m_folderName != folderName) {
         m_folderName = folderName;
-        emit folderNameChanged();
+        Q_EMIT folderNameChanged();
     }
 }
 
@@ -50,7 +50,7 @@ void CreateFolderAction::setCopyFrom(const QUrl &copyFrom)
 {
     if (m_copyFrom != copyFrom) {
         m_copyFrom = copyFrom;
-        emit copyFromChanged();
+        Q_EMIT copyFromChanged();
     }
 }
 

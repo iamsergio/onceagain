@@ -36,7 +36,7 @@ void CreateFileAction::setFileName(const QString &fileName)
 {
     if (m_fileName != fileName) {
         m_fileName = fileName;
-        emit fileNameChanged();
+        Q_EMIT fileNameChanged();
     }
 }
 
@@ -49,7 +49,7 @@ void CreateFileAction::setContents(const QString &contents)
 {
     if (contents != m_contents) {
         m_contents = contents;
-        emit contentsChanged();
+        Q_EMIT contentsChanged();
     }
 }
 
@@ -62,7 +62,7 @@ void CreateFileAction::setCopyFrom(const QString &copy)
 {
     if (copy != m_copyFrom) {
         m_copyFrom = copy;
-        emit copyFrom();
+        Q_EMIT copyFrom();
     }
 }
 
@@ -110,7 +110,7 @@ void CreateFileAction::setUseCamelCaseFileName(bool use)
 {
     if (m_useCamelCaseFileName != use) {
         m_useCamelCaseFileName = use;
-        emit useCamelCaseFileNameChanged();
+        Q_EMIT useCamelCaseFileNameChanged();
     }
 }
 

@@ -33,7 +33,7 @@ void OpenExplorer::setPath(const QUrl &path)
 {
     if (m_path != path) {
         m_path = path;
-        emit pathChanged();
+        Q_EMIT pathChanged();
         setCommand(explorerCommand());
     }
 }
