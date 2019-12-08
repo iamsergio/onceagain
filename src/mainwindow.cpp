@@ -141,11 +141,12 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     layout->addWidget(m_propertyTable);
     layout->addWidget(groupBox);
     outterLayout->addWidget(m_executeButton);
+    show();
 
     auto bottomdock = new KDDockWidgets::DockWidget("log");
     bottomdock->setTitle(tr("Log"));
     bottomdock->setWidget(m_logViewer);
-
+    bottomdock->resize(100, 150);
     auto maindock = new KDDockWidgets::DockWidget("main");
     maindock->setTitle(tr("Onceagain"));
     maindock->setWidget(mainwidget);
