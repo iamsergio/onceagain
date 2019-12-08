@@ -167,9 +167,11 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
 
     auto menubar = new QMenuBar(this);
     auto fileMenu = new QMenu(tr("File"));
+    auto viewsMenu = new QMenu(tr("Views"));
     auto toolsMenu = new QMenu(tr("Tools"));
     auto aboutMenu = new QMenu(tr("About"));
     menubar->addMenu(fileMenu);
+    menubar->addMenu(viewsMenu);
     menubar->addMenu(toolsMenu);
     menubar->addMenu(aboutMenu);
     auto newAction = fileMenu->addAction(tr("New script..."));
@@ -182,6 +184,8 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     newAction->setIcon(QIcon::fromTheme("document-new"));
     newAction->setShortcut(QKeySequence(QStringLiteral("ctrl+N")));
     reloadAction->setIcon(QIcon::fromTheme("view-refresh"));
+
+    viewsMenu->addAction(bottomdock->toggleAction());
 
     quitAction->setIcon(QIcon::fromTheme("application-exit"));
     connect(newAction, &QAction::triggered, this, &MainWindow::createNewScript);
