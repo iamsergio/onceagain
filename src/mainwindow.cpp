@@ -147,7 +147,7 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     bottomdock->setTitle(tr("Log"));
     bottomdock->setWidget(m_logViewer);
     bottomdock->resize(100, 150);
-    auto maindock = new KDDockWidgets::DockWidget("main");
+    auto maindock = new KDDockWidgets::DockWidget("main", KDDockWidgets::DockWidgetBase::Option_NotClosable);
     maindock->setTitle(tr("Onceagain"));
     maindock->setWidget(mainwidget);
 
