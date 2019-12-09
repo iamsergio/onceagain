@@ -34,8 +34,11 @@ QString CreateFileAction::fileName() const
 
 void CreateFileAction::setFileName(const QString &fileName)
 {
-    if (m_fileName != fileName) {
-        m_fileName = fileName;
+    QString fname = fileName;
+    fname = fname.replace("file://", "");
+
+    if (m_fileName != fname) {
+        m_fileName = fname;
         Q_EMIT fileNameChanged();
     }
 }
@@ -84,7 +87,7 @@ bool CreateFileAction::createNewFile()
 
     QFile file(m_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qWarning() << "Failed to open file" << m_fileName << "; error=" << file.errorString();
+        qWarning() << Q_FUNC_INFO << "Failed to open file" << m_fileName << "; error=" << file.errorString();
         return false;
     }
 
