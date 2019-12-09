@@ -51,6 +51,9 @@ static QString absolutePath(const QString &path)
 
 int main(int argv, char **argc)
 {
+    // Disable QML cache. Performance isn't noticeable on desktop. Let's not litter with *.qmlc files
+    qputenv("QML_DISABLE_DISK_CACHE", "1");
+
     Py_Initialize();
     auto cleanPython = qScopeGuard([] {Py_Finalize(); });
 
