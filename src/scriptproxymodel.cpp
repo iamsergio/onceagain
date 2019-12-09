@@ -74,3 +74,21 @@ bool ScriptProxyModel::filterAcceptsRow(int source_row, const QModelIndex &paren
 
     return true;
 }
+
+void ScriptProxyModel::setSourceModel(QAbstractItemModel *sourceModel)
+{
+    QSortFilterProxyModel::setSourceModel(sourceModel);
+
+    // ScriptModel is static, so we can connect straight off the bat
+
+    ScriptModel *scriptModel = qobject_cast<ScriptModel*>(sourceModel);
+    Q_ASSERT(scriptModel);
+    const int count = scriptModel->rowCount();
+    for (int i = 0; i < count; ++i) {
+        if (Script *script = scriptModel->script(sourceModel->index(i, 0))) {
+            connect(script, &Script::visibleChanged, this, [this]{
+                invalidateFilter();
+            });
+        }
+    }
+}

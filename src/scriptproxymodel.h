@@ -28,6 +28,8 @@ public:
     explicit ScriptProxyModel(const QString &baseTargetPath, QObject *parent = nullptr);
     void setBaseTargetOnlyFolder(bool);
     void setBaseTargetOnlyFile(bool);
+
+    void setSourceModel(QAbstractItemModel *sourceModel) override;
 protected:
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 private:

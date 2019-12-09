@@ -134,8 +134,12 @@ void Script::loadSourceQml()
 
     engine->rootContext()->setContextProperty("_baseTarget", baseTarget()); // Don't change order
 
-    if (!m_rootAction)
+    if (m_rootAction) {
+        connect(m_rootAction, &Action::visibleChanged, this, &Script::setVisible);
+        m_visible = m_rootAction->visible();
+    } else {
         qWarning() << Q_FUNC_INFO << rootComponent->errorString();
+    }
 }
 
 QString Script::baseTarget() const

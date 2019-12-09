@@ -160,6 +160,20 @@ bool Action::execute()
     return success;
 }
 
+bool Action::visible() const
+{
+    return m_visible;
+}
+
+void Action::setVisible(bool visible)
+{
+    if (m_visible == visible)
+        return;
+
+    m_visible = visible;
+    Q_EMIT visibleChanged(m_visible);
+}
+
 bool Action::canExecute() const
 {
     // The QML file might have a JavaScript function called canExecute(), which does some validations

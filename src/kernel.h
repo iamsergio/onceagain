@@ -34,6 +34,7 @@ class Kernel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString baseTarget READ baseTarget CONSTANT)
+    Q_PROPERTY(bool baseTargetIsFolder READ baseTargetIsFolder CONSTANT)
     Q_PROPERTY(QString externalEditor READ externalEditor CONSTANT)
     Q_PROPERTY(QObject* currentAction READ currentAction NOTIFY currentActionChanged)
 public:
@@ -57,6 +58,8 @@ public:
 
     Action *currentAction() const;
     void setCurrentAction(Action *);
+
+    bool baseTargetIsFolder() const;
 
 Q_SIGNALS:
     void baseTargetChanged(const QString &);

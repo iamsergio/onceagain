@@ -35,6 +35,7 @@ class Action : public QObject
     Q_PROPERTY(bool assertBaseTargetIsFile READ assertBaseTargetIsFile WRITE setAssertBaseTargetIsFile NOTIFY assertBaseTargetIsFileChanged)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(QStringList hiddenProperties READ hiddenProperties WRITE setHiddenProperties NOTIFY hiddenPropertiesChanged)
+    Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
     Q_CLASSINFO("DefaultProperty", "childActions")
 public:
     explicit Action(QObject *parent = nullptr);
@@ -66,6 +67,9 @@ public:
 
     virtual bool execute();
 
+    bool visible() const;
+    void setVisible(bool visible);
+
 Q_SIGNALS:
     void nameChanged();
     void abortIfPreviousFailedChanged();
@@ -75,6 +79,7 @@ Q_SIGNALS:
     void enabledChanged();
     void hiddenPropertiesChanged();
     void defaultBaseTargetChanged();
+    void visibleChanged(bool);
 
 private:
     bool canExecute() const;
@@ -88,6 +93,7 @@ private:
     bool m_enabled = true;
     QStringList m_hiddenProperties;
     QUrl m_defaultBaseTarget;
+    bool m_visible = true;
 };
 
 #endif

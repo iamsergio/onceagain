@@ -151,6 +151,12 @@ void Kernel::setCurrentAction(Action *action)
     }
 }
 
+bool Kernel::baseTargetIsFolder() const
+{
+    QFileInfo info(m_baseTarget);
+    return info.isDir();
+}
+
 void Kernel::ensureFoldersExist()
 {
     ensureFolderExists(m_scriptsFolder);
