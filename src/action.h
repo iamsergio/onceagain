@@ -31,8 +31,6 @@ class Action : public QObject
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
     Q_PROPERTY(QUrl defaultBaseTarget READ defaultBaseTarget WRITE setDefaultBaseTarget NOTIFY defaultBaseTargetChanged)
     Q_PROPERTY(QQmlListProperty<Action> childActions READ childActions)
-    Q_PROPERTY(bool assertBaseTargetIsFolder READ assertBaseTargetIsFolder WRITE setAssertBaseTargetIsFolder NOTIFY assertBaseTargetIsFolderChanged)
-    Q_PROPERTY(bool assertBaseTargetIsFile READ assertBaseTargetIsFile WRITE setAssertBaseTargetIsFile NOTIFY assertBaseTargetIsFileChanged)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(QStringList hiddenProperties READ hiddenProperties WRITE setHiddenProperties NOTIFY hiddenPropertiesChanged)
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
@@ -42,12 +40,6 @@ public:
     QQmlListProperty<Action> childActions();
     QString name() const;
     void setName(const QString &name);
-
-    void setAssertBaseTargetIsFolder(bool);
-    bool assertBaseTargetIsFolder() const;
-
-    void setAssertBaseTargetIsFile(bool);
-    bool assertBaseTargetIsFile() const;
 
     Action * abortIfPreviousFailed() const;
     void setAbortIfPreviousFailed(Action*);
@@ -73,8 +65,6 @@ public:
 Q_SIGNALS:
     void nameChanged();
     void abortIfPreviousFailedChanged();
-    void assertBaseTargetIsFolderChanged();
-    void assertBaseTargetIsFileChanged();
     void descriptionChanged();
     void enabledChanged();
     void hiddenPropertiesChanged();
@@ -87,8 +77,6 @@ private:
     QString m_name;
     QString m_description;
     bool m_inErrorState = false;
-    bool m_assertBaseTargetIsFolder = false;
-    bool m_assertBaseTargetIsFile = false;
     QList<Action*> m_childActions;
     bool m_enabled = true;
     QStringList m_hiddenProperties;

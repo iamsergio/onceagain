@@ -30,22 +30,6 @@ ScriptProxyModel::ScriptProxyModel(const QString &baseTargetPath, QObject *paren
 {
 }
 
-void ScriptProxyModel::setBaseTargetOnlyFolder(bool only)
-{
-    if (only != m_baseTargetOnlyFolder) {
-        m_baseTargetOnlyFolder = only;
-        invalidateFilter();
-    }
-}
-
-void ScriptProxyModel::setBaseTargetOnlyFile(bool only)
-{
-    if (only != m_baseTargetOnlyFile) {
-        m_baseTargetOnlyFile = only;
-        invalidateFilter();
-    }
-}
-
 bool ScriptProxyModel::filterAcceptsRow(int source_row, const QModelIndex &parent) const
 {
     if (!sourceModel())
@@ -62,14 +46,6 @@ bool ScriptProxyModel::filterAcceptsRow(int source_row, const QModelIndex &paren
 
     Action *action = script->rootAction();
     if (!action)
-        return false;
-
-    QFileInfo info(m_baseTargetPath);
-
-    if (action->assertBaseTargetIsFolder() && !info.isDir())
-        return false;
-
-    if (action->assertBaseTargetIsFile() && !info.isFile())
         return false;
 
     return true;

@@ -41,32 +41,6 @@ void Action::setName(const QString &name)
     }
 }
 
-void Action::setAssertBaseTargetIsFolder(bool assert)
-{
-    if (assert != m_assertBaseTargetIsFolder) {
-        m_assertBaseTargetIsFolder = assert;
-        Q_EMIT assertBaseTargetIsFolderChanged();
-    }
-}
-
-bool Action::assertBaseTargetIsFolder() const
-{
-    return m_assertBaseTargetIsFolder;
-}
-
-bool Action::assertBaseTargetIsFile() const
-{
-    return m_assertBaseTargetIsFile;
-}
-
-void Action::setAssertBaseTargetIsFile(bool assert)
-{
-    if (assert != m_assertBaseTargetIsFile) {
-        m_assertBaseTargetIsFile = assert;
-        Q_EMIT assertBaseTargetIsFileChanged();
-    }
-}
-
 Action *Action::abortIfPreviousFailed() const
 {
     return m_abortIfPreviousFailed;

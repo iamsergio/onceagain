@@ -91,17 +91,8 @@ bool Script::execute() const
         return false;
     }
 
-    if (m_rootAction) {
-        if (m_rootAction->assertBaseTargetIsFolder()) {
-            QDir dir(m_kernel->baseTarget());
-            if (!dir.exists()) {
-                qWarning() << Q_FUNC_INFO << "Couldn't find no folder named" << baseTarget();
-                return false;
-            }
-        }
-
+    if (m_rootAction)
         return m_rootAction->execute();
-    }
 
     return false;
 }
