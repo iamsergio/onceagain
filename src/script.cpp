@@ -120,6 +120,7 @@ void Script::loadSourceQml()
     engine->rootContext()->setContextProperty("_file", m_kernel->fileUtils());
     engine->rootContext()->setContextProperty("_string", m_kernel->stringUtils());
     engine->rootContext()->setContextProperty("_cmake", m_kernel->cmakeUtils());
+    engine->rootContext()->setContextProperty("_kernel", m_kernel);
     auto rootComponent = new QQmlComponent(engine, m_sourceQml);
     m_rootAction = qobject_cast<Action*>(rootComponent->create());
 
