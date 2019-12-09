@@ -46,12 +46,12 @@ void ScriptProxyModel::setBaseTargetOnlyFile(bool only)
     }
 }
 
-bool ScriptProxyModel::filterAcceptsRow(int source_row, const QModelIndex &) const
+bool ScriptProxyModel::filterAcceptsRow(int source_row, const QModelIndex &parent) const
 {
     if (!sourceModel())
         return false;
 
-    Script *script = sourceModel()->index(source_row, 0).data(ScriptRole).value<Script*>();
+    Script *script = sourceModel()->index(source_row, 0, parent).data(ScriptRole).value<Script*>();
     if (!script) {
         // It's a folder with scripts
         return true;
