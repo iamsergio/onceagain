@@ -36,6 +36,10 @@ class Kernel;
 class Script : public QObject
 {
     Q_OBJECT
+
+    ///@brief Returns if the script is visible to the user
+    Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
+
 public:
     typedef QList<Script*> List;
     explicit Script(const QUrl &source, Kernel *kernel);
@@ -49,11 +53,18 @@ public:
 
     bool execute() const;
 
+    bool visible() const;
+    void setVisible(bool visible);
+
+Q_SIGNALS:
+    void visibleChanged(bool visible);
+
 private:
     void loadSourceQml();
     Action * m_rootAction = nullptr;
     const QUrl m_sourceQml;
     Kernel *const m_kernel;
+    bool m_visible = true;
 };
 
 #endif

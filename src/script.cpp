@@ -86,6 +86,11 @@ QUrl Script::sourceUrl() const
 
 bool Script::execute() const
 {
+    if (!visible()) {
+        Q_UNREACHABLE();
+        return false;
+    }
+
     if (m_rootAction) {
         if (m_rootAction->assertBaseTargetIsFolder()) {
             QDir dir(m_kernel->baseTarget());
@@ -99,6 +104,20 @@ bool Script::execute() const
     }
 
     return false;
+}
+
+bool Script::visible() const
+{
+    return m_visible;
+}
+
+void Script::setVisible(bool visible)
+{
+    if (m_visible == visible)
+        return;
+
+    m_visible = visible;
+    Q_EMIT visibleChanged(m_visible);
 }
 
 void Script::loadSourceQml()

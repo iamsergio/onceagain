@@ -53,9 +53,12 @@ bool ScriptProxyModel::filterAcceptsRow(int source_row, const QModelIndex &) con
 
     Script *script = sourceModel()->index(source_row, 0).data(ScriptRole).value<Script*>();
     if (!script) {
-        // It's a folder
+        // It's a folder with scripts
         return true;
     }
+
+    if (!script->visible())
+        return false;
 
     Action *action = script->rootAction();
     if (!action)
