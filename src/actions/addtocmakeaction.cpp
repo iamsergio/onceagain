@@ -39,4 +39,6 @@ void AddToCMakeAction::setCmakeFilePath(const QString &cmakeFilePath)
 
     m_cmakeFilePath = cmakeFilePath;
     Q_EMIT cmakeFilePathChanged();
+
+    setVisible(!m_cmakeFilePath.isEmpty());
 }

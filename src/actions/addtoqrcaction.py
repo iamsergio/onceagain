@@ -4,11 +4,9 @@ def execute_action():
 
     if not qrcFilePath:
         print("AddToQRC: Could not determine qrc. Skipping.")
-        return True
-
+        return False
 
     # TODO
-
     return True
 
 

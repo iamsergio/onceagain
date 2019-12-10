@@ -35,5 +35,7 @@ void AddToQRCAction::setQrcFilePath(const QString &qrcFilePath)
     if (m_qrcFilePath != qrcFilePath) {
         m_qrcFilePath = qrcFilePath;
         Q_EMIT qrcFilePathChanged();
+
+        setVisible(!m_qrcFilePath.isEmpty());
     }
 }

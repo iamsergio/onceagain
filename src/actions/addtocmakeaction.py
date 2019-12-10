@@ -4,9 +4,8 @@ def execute_action():
 
     if not cmakeFilePath:
         print("AddToCMake: Could not determine CMakeLists.txt. Skipping.")
-        return True
+        return False
 
-    
     # TODO
 
     return True
