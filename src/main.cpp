@@ -61,7 +61,7 @@ int main(int argv, char **argc)
     app.setWindowIcon(QIcon(":/onceagain.png"));
 
     const QString baseTarget = app.arguments().size() >= 2 ? absolutePath(app.arguments().at(1))
-                                                           : QString();
+                                                           : QStringLiteral(".");
 
 
     auto kernel = Kernel::create(scriptsFolderPath(), baseTarget);
