@@ -39,3 +39,16 @@ void AddToQRCAction::setQrcFilePath(const QString &qrcFilePath)
         setVisible(!m_qrcFilePath.isEmpty());
     }
 }
+
+QString AddToQRCAction::qrcLine() const
+{
+    return m_qrcLine;
+}
+
+void AddToQRCAction::setQrcLine(const QString &line)
+{
+    if (m_qrcLine != line) {
+        m_qrcLine = line;
+        Q_EMIT qrcLineChanged();
+    }
+}

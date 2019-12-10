@@ -25,14 +25,19 @@ class AddToQRCAction : public PythonAction
 {
     Q_OBJECT
     Q_PROPERTY(QString qrcFilePath READ qrcFilePath WRITE setQrcFilePath NOTIFY qrcFilePathChanged)
+    Q_PROPERTY(QString qrcLine READ qrcLine WRITE setQrcLine NOTIFY qrcLineChanged)
 public:
     explicit AddToQRCAction(QObject *parent = nullptr);
     QString qrcFilePath() const;
     void setQrcFilePath(const QString &qrcFilePath);
 
+    QString qrcLine() const;
+    void setQrcLine(const QString &);
 Q_SIGNALS:
     void qrcFilePathChanged();
+    void qrcLineChanged();
 
 private:
     QString m_qrcFilePath;
+    QString m_qrcLine;
 };
