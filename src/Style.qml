@@ -12,4 +12,7 @@ QtObject {
 
     /// @brief absolute path for the QRC file
     property string qrcPath: ""
+
+    /// @brief filenames are generated with camel case
+    property bool camelCaseFileNames: true
 }
