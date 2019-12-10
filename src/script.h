@@ -32,6 +32,7 @@ class FileUtils;
 class StringUtils;
 class CMakeUtils;
 class Kernel;
+class QQmlEngine;
 
 class Script : public QObject
 {
@@ -60,6 +61,7 @@ Q_SIGNALS:
     void visibleChanged(bool visible);
 
 private:
+    QObject* createStyleObject(QQmlEngine *engine) const;
     void loadSourceQml();
     Action * m_rootAction = nullptr;
     const QUrl m_sourceQml;

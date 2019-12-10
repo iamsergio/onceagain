@@ -111,6 +111,21 @@ void Script::setVisible(bool visible)
     Q_EMIT visibleChanged(m_visible);
 }
 
+QObject *Script::createStyleObject(QQmlEngine *engine) const
+{
+    QString styleFilename = qgetenv("ONCEAGAIN_STYLE");
+    if (styleFilename.isEmpty()) {
+        styleFilename = ":/src/Style.qml";
+    } else {
+        styleFilename = QStringLiteral("%1/styles/%2").arg(m_kernel->scriptsFolder()).arg(styleFilename);
+        if (!QFileInfo::exists(styleFilename))
+            styleFilename = ":/src/Style.qml";
+    }
+
+    auto rootComponent = new QQmlComponent(engine, styleFilename);
+    return rootComponent->create();
+}
+
 void Script::loadSourceQml()
 {
     auto engine = new QQmlEngine(this);
@@ -121,6 +136,8 @@ void Script::loadSourceQml()
     engine->rootContext()->setContextProperty("_string", m_kernel->stringUtils());
     engine->rootContext()->setContextProperty("_cmake", m_kernel->cmakeUtils());
     engine->rootContext()->setContextProperty("_kernel", m_kernel);
+    engine->rootContext()->setContextProperty("_style", createStyleObject(engine));
+
     auto rootComponent = new QQmlComponent(engine, m_sourceQml);
     m_rootAction = qobject_cast<Action*>(rootComponent->create());
 

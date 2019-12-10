@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/">
+    <file>src/Style.qml</file>
     <file>src/common.py</file>
     <file>src/actions/addtocmakeaction.py</file>
     <file>src/actions/addtoqrcaction.py</file>

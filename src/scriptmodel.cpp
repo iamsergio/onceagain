@@ -120,6 +120,8 @@ bool ScriptModel::isFolder(const QModelIndex &index) const
 
 void ScriptModel::loadScripts(const QString &folder, QStandardItem *parent)
 {
+    const QStringList reservedNames = { "templates", "styles" };
+
     QDir dir(folder);
     const QFileInfoList infos = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs | QDir::Readable);
     for (const auto &info : infos) {
@@ -133,7 +135,7 @@ void ScriptModel::loadScripts(const QString &folder, QStandardItem *parent)
                 item->setData(info.absoluteFilePath(), ScriptPathRole);
                 parent->appendRow(item);
             }
-        } else if (info.isDir() && info.fileName() != QStringLiteral("templates")) {
+        } else if (info.isDir() && !reservedNames.contains(info.fileName())) {
             auto item = new QStandardItem(info.fileName());
             item->setData(info.absoluteFilePath(), FolderPathRole);
             item->setData(true, IsFolder);
