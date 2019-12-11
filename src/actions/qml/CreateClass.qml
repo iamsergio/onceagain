@@ -4,13 +4,11 @@ import OnceAgain 1.0
 PythonAction {
     id: root
     property string className: ""
-    property bool camelCaseFileName: false
+    property bool camelCaseFileName: _style.camelCaseFileNames
     property bool explicit: false
     property string template: ""
     property var includes: []
 
-    property string cppFolder: ""
-    property string headerFolder: cppFolder
     property string licenseHeader: ""
     property string ctorArguments: ""
     property string implCtorArguments: ""
@@ -20,12 +18,9 @@ PythonAction {
     property string namespace: ""
     property bool usesPragmaOnce: true
 
-    property string cppTemplate: ":/templates/cpp/class.cpp"
-    property string headerTemplate: ":/templates/cpp/class.h"
-
-    hiddenProperties: ["cppFolder", "headerFolder", "template", "camelCaseFileName",
+    hiddenProperties: ["template", "camelCaseFileName",
                        "licenseHeader", "ctorArguments", "includes", "explicit",
-                       "ctorInitList", "implCtorArguments", "headerTemplate", "cppTemplate"]
+                       "ctorInitList", "implCtorArguments"]
     readonly property string filename: camelCaseFileName ? className : className.toLowerCase()
     readonly property string headerFileName: filename.length > 0 ? filename + ".h"
                                                                  : ""
@@ -48,43 +43,4 @@ PythonAction {
 
         return text;
     }
-
-    function baseClassText()
-    {
-        if (!root.baseClass)
-            return ""
-
-        return " : public " + root.baseClass
-    }
-
-    function explicitText()
-    {
-        return root.explicit ? "explicit " : ""
-    }
-
-    function ctorInitListText()
-    {
-        return root.ctorInitList ? "\n    : %1".arg(root.ctorInitList) : ""
-    }
-
-    /*CreateFile {
-        fileName: cppFolder + cppFileName
-        contents: _file.read(cppTemplate).arg(root.headerFileName)
-                                         .arg(root.className)
-                                         .arg(root.licenseHeader)
-                                         .arg(root.implCtorArguments)
-                                         .arg(ctorInitListText())
-    }
-
-    CreateFile {
-        fileName: headerFolder + headerFileName
-        contents: _file.read(headerTemplate).arg(root.includeGuard)
-                                            .arg(root.className)
-                                            .arg(root.licenseHeader)
-                                            .arg(baseClassText())
-                                            .arg(explicitText())
-                                            .arg(includesText())
-                                            .arg(root.ctorArguments)
-                                            .arg(macrosText())
-    }*/
 }

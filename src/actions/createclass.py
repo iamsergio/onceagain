@@ -3,7 +3,7 @@ import os, shutil
 def execute_action():
     className = get_property('className')
     includeGuard = get_property('includeGuard')
-    camelCaseFileName = get_property('includeGuard')
+    camelCaseFileName = get_property('camelCaseFileName')
     headerFileName = get_property('headerFileName')
     cppFileName = get_property('cppFileName')
     baseTarget = get_property('baseTarget') + '/'
