@@ -33,7 +33,14 @@ bool PythonAction::execute()
         return false;
     }
 
-    return PyRun_SimpleString((m_commonPythonCode + pythonCode).constData()) == 0;
+    const bool success = PyRun_SimpleString((m_commonPythonCode + pythonCode).constData()) == 0;
+
+    if (success)
+        qDebug() << "PythonAction: success";
+    else
+        qDebug() << "PythonAction: error";
+
+    return success;
 }
 
 QByteArray PythonAction::readPythonFile(const QString &filename) const

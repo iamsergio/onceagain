@@ -9,7 +9,6 @@ set(ONCEAGAIN_SRCS
     actions/openeditor.cpp
     actions/openexplorer.cpp
     actions/pythonaction.cpp
-    actions/removedirectory.cpp
     actions/removefileaction.cpp
     actions/runcommand.cpp
     kernel.cpp

@@ -21,7 +21,6 @@
 #include "actions/createfolderaction.h"
 #include "actions/createfileaction.h"
 #include "actions/runcommand.h"
-#include "actions/removedirectory.h"
 #include "actions/removefileaction.h"
 #include "actions/openeditor.h"
 #include "actions/openexplorer.h"
@@ -48,7 +47,6 @@ static void registerTypes()
     qmlRegisterType<PythonAction>("OnceAgain", 1, 0, "PythonAction");
     qmlRegisterType<CreateFolderAction>("OnceAgain", 1, 0, "CreateFolder");
     qmlRegisterType<CreateFileAction>("OnceAgain", 1, 0, "CreateFile");
-    qmlRegisterType<RemoveDirectory>("OnceAgain", 1, 0, "RemoveDirectory");
     qmlRegisterType<RemoveFileAction>("OnceAgain", 1, 0, "RemoveFile");
     qmlRegisterType<RunCommand>("OnceAgain", 1, 0, "RunCommand");
     qmlRegisterType<OpenEditor>("OnceAgain", 1, 0, "OpenEditor");
