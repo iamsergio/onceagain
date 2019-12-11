@@ -21,7 +21,7 @@
 #include "kernel.h"
 
 AddToCMakeAction::AddToCMakeAction(QObject *parent)
-    : PythonAction("addtocmakeaction.py", parent)
+    : PythonAction("addtocmake.py", parent)
 {
     if (Kernel::instance()->baseTarget().endsWith("CMakeLists.txt"))
         m_cmakeFilePath = Kernel::instance()->baseTarget();

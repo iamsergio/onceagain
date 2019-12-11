@@ -21,7 +21,7 @@
 #include "kernel.h"
 
 AddToQRCAction::AddToQRCAction(QObject *parent)
-    : PythonAction("addtoqrcaction.py", parent)
+    : PythonAction("addtoqrc.py", parent)
 {
 }
 
