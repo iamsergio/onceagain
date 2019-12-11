@@ -3,7 +3,7 @@ import OnceAgain 1.0
 
 CreateClass {
     id: root
-    macros: "Q_OBJECT"
+    isQObject: true
     ctorArguments: "QObject *parent = nullptr"
     implCtorArguments: "QObject *parent"
     ctorInitList: "%1(parent)".arg(baseClass)

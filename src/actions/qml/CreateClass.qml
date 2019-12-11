@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import OnceAgain 1.0
 
-Action {
+PythonAction {
     id: root
     property string className: ""
     property bool camelCaseFileName: false
@@ -16,20 +16,25 @@ Action {
     property string implCtorArguments: ""
     property string baseClass: ""
     property string ctorInitList: ""
-    property string macros: ""
+    property bool isQObject: false
+    property string namespace: ""
+    property bool usesPragmaOnce: true
 
     property string cppTemplate: ":/templates/cpp/class.cpp"
     property string headerTemplate: ":/templates/cpp/class.h"
 
     hiddenProperties: ["cppFolder", "headerFolder", "template", "camelCaseFileName",
                        "licenseHeader", "ctorArguments", "includes", "explicit",
-                       "baseClass", "ctorInitList", "macros", "implCtorArguments", "headerTemplate", "cppTemplate"]
+                       "ctorInitList", "implCtorArguments", "headerTemplate", "cppTemplate"]
     readonly property string filename: camelCaseFileName ? className : className.toLowerCase()
     readonly property string headerFileName: filename.length > 0 ? filename + ".h"
                                                                  : ""
     readonly property string cppFileName: filename.length > 0 ? filename + ".cpp"
                                                               : ""
     readonly property string includeGuard: className.toUpperCase()
+    readonly property string baseTarget: _baseTarget
+
+    pythonFileName: "createclass.py"
 
     function includesText() {
         if (root.includes.length == 0)
@@ -52,11 +57,6 @@ Action {
         return " : public " + root.baseClass
     }
 
-    function macrosText()
-    {
-        return root.macros ? "    %1\n".arg(root.macros): ""
-    }
-
     function explicitText()
     {
         return root.explicit ? "explicit " : ""
@@ -67,7 +67,7 @@ Action {
         return root.ctorInitList ? "\n    : %1".arg(root.ctorInitList) : ""
     }
 
-    CreateFile {
+    /*CreateFile {
         fileName: cppFolder + cppFileName
         contents: _file.read(cppTemplate).arg(root.headerFileName)
                                          .arg(root.className)
@@ -86,5 +86,5 @@ Action {
                                             .arg(includesText())
                                             .arg(root.ctorArguments)
                                             .arg(macrosText())
-    }
+    }*/
 }

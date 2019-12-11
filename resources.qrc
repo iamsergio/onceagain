@@ -2,6 +2,7 @@
 <qresource prefix="/">
     <file>src/Style.qml</file>
     <file>src/common.py</file>
+    <file>src/actions/createclass.py</file>
     <file>src/actions/addtocmake.py</file>
     <file>src/actions/addtoqrc.py</file>
     <file>src/actions/removedirectory.py</file>
