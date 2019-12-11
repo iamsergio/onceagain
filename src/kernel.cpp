@@ -45,6 +45,7 @@ static Kernel *s_kernel = nullptr;
 static void registerTypes()
 {
     qmlRegisterType<Action>("OnceAgain", 1, 0, "Action");
+    qmlRegisterType<PythonAction>("OnceAgain", 1, 0, "PythonAction");
     qmlRegisterType<CreateFolderAction>("OnceAgain", 1, 0, "CreateFolder");
     qmlRegisterType<CreateFileAction>("OnceAgain", 1, 0, "CreateFile");
     qmlRegisterType<RemoveDirectory>("OnceAgain", 1, 0, "RemoveDirectory");

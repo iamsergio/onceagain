@@ -21,8 +21,9 @@
 #include "kernel.h"
 
 AddToQRCAction::AddToQRCAction(QObject *parent)
-    : PythonAction("addtoqrc.py", parent)
+    : PythonAction(parent)
 {
+    setName("AddToQRC");
 }
 
 QString AddToQRCAction::qrcFilePath() const

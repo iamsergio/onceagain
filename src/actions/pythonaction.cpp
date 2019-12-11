@@ -7,23 +7,29 @@
 
 #include <Python.h>
 
-PythonAction::PythonAction(const QString &pythonFileName, QObject *parent)
+PythonAction::PythonAction(QObject *parent)
     : Action(parent)
-    , m_pythonFileName(pythonFileName)
     , m_commonPythonCode(readPythonFile(QStringLiteral(":/src/common.py")))
 {
 }
 
 bool PythonAction::execute()
 {
+    if (name().isEmpty()) {
+        qWarning() << "PythonAction requires a name. Otherwise we don't know which py file to run";
+        return false;
+    }
+
     Kernel::instance()->setCurrentAction(this);
     auto cleanup = qScopeGuard([] {
         Kernel::instance()->setCurrentAction(nullptr);
     });
 
-    const QByteArray pythonCode = readPythonFile(QStringLiteral(":/src/actions/%1").arg(m_pythonFileName));
+    const QString pythonFileName = QStringLiteral("%1.py").arg(name().toLower());
+
+    const QByteArray pythonCode = readPythonFile(QStringLiteral(":/src/actions/%1").arg(pythonFileName));
     if (pythonCode.isEmpty()) {
-        qWarning() << Q_FUNC_INFO << "Could not read python code from" << m_pythonFileName;
+        qWarning() << Q_FUNC_INFO << "Could not read python code from" << pythonFileName;
         return false;
     }
 

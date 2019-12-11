@@ -7,7 +7,7 @@ class PythonAction : public Action
 {
     Q_OBJECT
 public:
-    explicit PythonAction(const QString &pythonFileName, QObject *parent = nullptr);
+    explicit PythonAction(QObject *parent = nullptr);
 
 protected:
     bool execute() override final;

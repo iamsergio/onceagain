@@ -56,8 +56,9 @@ static bool removeRecursively(QDir &dir)
 }
 
 RemoveDirectory::RemoveDirectory(QObject *parent)
-    : PythonAction(QStringLiteral("removedirectory.py"), parent)
+    : PythonAction(parent)
 {
+    setName("RemoveDirectory");
 }
 
 RemoveDirectory::~RemoveDirectory()
