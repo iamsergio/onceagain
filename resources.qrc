@@ -10,6 +10,8 @@
     <file>src/actions/qml/CreateQObject.qml</file>
     <file>src/actions/qml/CreateQWidget.qml</file>
     <file>src/actions/qml/RemoveDirectory.qml</file>
+    <file>src/actions/qml/AddToCMake.qml</file>
+    <file>src/actions/qml/AddToQRC.qml</file>
     <file>src/actions/qml/CreateQSortFilterProxyModel.qml</file>
     <file>templates/cpp/class.h</file>
     <file>templates/cpp/class.cpp</file>
