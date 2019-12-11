@@ -42,3 +42,31 @@ void AddToCMakeAction::setCmakeFilePath(const QString &cmakeFilePath)
 
     setVisible(!m_cmakeFilePath.isEmpty());
 }
+
+QString AddToCMakeAction::cmakeVariable() const
+{
+    return m_cmakeVariable;
+}
+
+void AddToCMakeAction::setCmakeVariable(const QString &cmakeVariable)
+{
+    if (m_cmakeVariable == cmakeVariable)
+        return;
+
+    m_cmakeVariable = cmakeVariable;
+    Q_EMIT cmakeVariableChanged();
+}
+
+QString AddToCMakeAction::cmakeLine() const
+{
+    return m_cmakeLine;
+}
+
+void AddToCMakeAction::setCmakeLine(const QString &cmakeLine)
+{
+    if (m_cmakeLine == cmakeLine)
+        return;
+
+    m_cmakeLine = cmakeLine;
+    Q_EMIT cmakeLineChanged();
+}

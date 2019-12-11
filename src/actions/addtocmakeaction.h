@@ -25,15 +25,27 @@ class AddToCMakeAction : public PythonAction
 {
     Q_OBJECT
     Q_PROPERTY(QString cmakeFilePath READ cmakeFilePath WRITE setCmakeFilePath NOTIFY cmakeFilePathChanged)
+    Q_PROPERTY(QString cmakeVariable READ cmakeVariable WRITE setCmakeVariable NOTIFY cmakeVariableChanged)
+    Q_PROPERTY(QString cmakeLine READ cmakeLine WRITE setCmakeLine NOTIFY cmakeLineChanged)
 public:
     explicit AddToCMakeAction(QObject *parent = nullptr);
 
     QString cmakeFilePath() const;
     void setCmakeFilePath(const QString &cmakeFilePath);
 
+    QString cmakeVariable() const;
+    void setCmakeVariable(const QString &cmakeVariable);
+
+    QString cmakeLine() const;
+    void setCmakeLine(const QString &cmakeLine);
+
 Q_SIGNALS:
     void cmakeFilePathChanged();
+    void cmakeVariableChanged();
+    void cmakeLineChanged();
 
 private:
     QString m_cmakeFilePath;
+    QString m_cmakeVariable;
+    QString m_cmakeLine;
 };
