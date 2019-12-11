@@ -4,7 +4,6 @@ set(ONCEAGAIN_SRCS
     actions/addtocmakeaction.h
     actions/addtoqrcaction.cpp
     actions/addtoqrcaction.h
-    actions/createclassaction.cpp
     actions/createfileaction.cpp
     actions/createfolderaction.cpp
     actions/openeditor.cpp
