@@ -24,6 +24,7 @@ AddToQRCAction::AddToQRCAction(QObject *parent)
     : PythonAction(parent)
 {
     setName("AddToQRC");
+    setPythonFileName("addtoqrc.py");
 }
 
 QString AddToQRCAction::qrcFilePath() const

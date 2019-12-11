@@ -24,6 +24,7 @@ AddToCMakeAction::AddToCMakeAction(QObject *parent)
     : PythonAction(parent)
 {
     setName("AddToCMake");
+    setPythonFileName("addtocmake.py");
 
     if (Kernel::instance()->baseTarget().endsWith("CMakeLists.txt"))
         m_cmakeFilePath = Kernel::instance()->baseTarget();

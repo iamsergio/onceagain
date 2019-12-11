@@ -13,6 +13,20 @@ PythonAction::PythonAction(QObject *parent)
 {
 }
 
+QString PythonAction::pythonFileName() const
+{
+    return m_pythonFileName;
+}
+
+void PythonAction::setPythonFileName(const QString &pythonFileName)
+{
+    if (m_pythonFileName == pythonFileName)
+        return;
+
+    m_pythonFileName = pythonFileName;
+    Q_EMIT pythonFileNameChanged();
+}
+
 bool PythonAction::execute()
 {
     if (name().isEmpty()) {
@@ -25,11 +39,9 @@ bool PythonAction::execute()
         Kernel::instance()->setCurrentAction(nullptr);
     });
 
-    const QString pythonFileName = QStringLiteral("%1.py").arg(name().toLower());
-
-    const QByteArray pythonCode = readPythonFile(QStringLiteral(":/src/actions/%1").arg(pythonFileName));
+    const QByteArray pythonCode = readPythonFile(QStringLiteral(":/src/actions/%1").arg(m_pythonFileName));
     if (pythonCode.isEmpty()) {
-        qWarning() << Q_FUNC_INFO << "Could not read python code from" << pythonFileName;
+        qWarning() << Q_FUNC_INFO << "Could not read python code from" << m_pythonFileName;
         return false;
     }
 
