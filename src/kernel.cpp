@@ -18,14 +18,13 @@
 */
 
 #include "kernel.h"
+#include "actions/pythonaction.h"
 #include "actions/createfolderaction.h"
 #include "actions/createfileaction.h"
 #include "actions/runcommand.h"
 #include "actions/removefileaction.h"
 #include "actions/openeditor.h"
 #include "actions/openexplorer.h"
-#include "actions/addtocmakeaction.h"
-#include "actions/addtoqrcaction.h"
 
 #include "fileutils.h"
 #include "stringutils.h"
@@ -51,8 +50,6 @@ static void registerTypes()
     qmlRegisterType<RunCommand>("OnceAgain", 1, 0, "RunCommand");
     qmlRegisterType<OpenEditor>("OnceAgain", 1, 0, "OpenEditor");
     qmlRegisterType<OpenExplorer>("OnceAgain", 1, 0, "OpenExplorer");
-    qmlRegisterType<AddToCMakeAction>("OnceAgain", 1, 0, "AddToCMake");
-    qmlRegisterType<AddToQRCAction>("OnceAgain", 1, 0, "AddToQRCAction");
 }
 
 /** static */
