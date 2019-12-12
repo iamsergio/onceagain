@@ -15,4 +15,10 @@ QtObject {
 
     /// @brief filenames are generated with camel case
     property bool camelCaseFileNames: true
+
+    /// @brief the default cmake variable name that holds the sources
+    property string defaultCMakeVariable: ""
+
+    /// @brief the default cmake like to add to the cmake variable
+    property string defaultCMakeLine: ""
 }

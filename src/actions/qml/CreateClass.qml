@@ -1,6 +1,8 @@
 import QtQuick 2.4
 import OnceAgain 1.0
 
+import "qrc:///src/actions/qml"
+
 PythonAction {
     id: root
     property string className: ""
@@ -17,6 +19,9 @@ PythonAction {
     property bool isQObject: false
     property string namespace: ""
     property bool usesPragmaOnce: true
+
+    property string cmakeVariable: _style.defaultCMakeVariable
+    property string cmakeLine: _style.defaultCMakeLine
 
     hiddenProperties: ["template", "camelCaseFileName",
                        "licenseHeader", "ctorArguments", "includes", "explicit",
@@ -42,5 +47,11 @@ PythonAction {
         }
 
         return text;
+    }
+
+    AddToCMake {
+        cmakeFilePath: ""
+        cmakeVariable: root.cmakeVariable
+        cmakeLine: root.cmakeLine
     }
 }
