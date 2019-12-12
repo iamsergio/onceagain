@@ -20,6 +20,7 @@ PythonAction {
     property string namespace: ""
     property bool usesPragmaOnce: true
 
+    property string cmakeliststxt: _file.firstCMakeFileFrom(_baseTarget)
     property string cmakeVariable: _style.defaultCMakeVariable
     property string cmakeLine: _style.defaultCMakeLine
 
@@ -50,8 +51,8 @@ PythonAction {
     }
 
     AddToCMake {
-        cmakeFilePath: _file.firstCMakeFileFrom(_baseTarget)
+        cmakeFilePath: root.cmakeliststxt
         cmakeVariable: root.cmakeVariable
-        cmakeLine: root.cmakeLine
+        cmakeLine: root.cmakeLine.arg(root.cppFileName)
     }
 }
