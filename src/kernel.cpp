@@ -28,7 +28,6 @@
 
 #include "fileutils.h"
 #include "stringutils.h"
-#include "cmakeutils.h"
 
 #include "scriptmodel.h"
 
@@ -75,7 +74,6 @@ Kernel::Kernel(const QString &scriptsFolder, const QString &baseTarget, QObject 
     , m_baseTarget(QDir::fromNativeSeparators(baseTarget))
     , m_fileUtils(new FileUtils(this))
     , m_stringUtils(new StringUtils(this))
-    , m_cmakeUtils(new CMakeUtils(m_stringUtils, m_fileUtils, this))
     , m_scriptModel(new ScriptModel(this))
     , m_externalEditor(QString::fromUtf8(qgetenv("ONCE_AGAIN_EDITOR")))
     , m_externalFileExplorer(QString::fromUtf8(qgetenv("ONCE_AGAIN_FILE_EXPLORER")))
@@ -96,11 +94,6 @@ FileUtils *Kernel::fileUtils() const
 StringUtils *Kernel::stringUtils() const
 {
     return m_stringUtils;
-}
-
-CMakeUtils *Kernel::cmakeUtils() const
-{
-    return m_cmakeUtils;
 }
 
 QString Kernel::scriptsFolder() const

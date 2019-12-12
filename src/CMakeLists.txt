@@ -13,7 +13,6 @@ set(ONCEAGAIN_SRCS
     script.cpp
     scriptmodel.cpp
     scriptproxymodel.cpp
-    utils/cmakeutils.cpp
     utils/fileutils.cpp
     utils/stringutils.cpp
 )

@@ -21,7 +21,6 @@
 #include "action.h"
 #include "fileutils.h"
 #include "stringutils.h"
-#include "cmakeutils.h"
 #include "kernel.h"
 
 #include <QQmlEngine>
@@ -134,7 +133,6 @@ void Script::loadSourceQml()
     engine->rootContext()->setContextProperty("_templatesFolder", m_kernel->scriptsFolder() + QStringLiteral("/templates/"));
     engine->rootContext()->setContextProperty("_file", m_kernel->fileUtils());
     engine->rootContext()->setContextProperty("_string", m_kernel->stringUtils());
-    engine->rootContext()->setContextProperty("_cmake", m_kernel->cmakeUtils());
     engine->rootContext()->setContextProperty("_kernel", m_kernel);
     engine->rootContext()->setContextProperty("_style", createStyleObject(engine));
 

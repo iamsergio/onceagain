@@ -43,7 +43,6 @@ public:
 
     FileUtils *fileUtils() const;
     StringUtils *stringUtils() const;
-    CMakeUtils *cmakeUtils() const;
 
     QString scriptsFolder() const;
     QString templatesFolder() const;
@@ -73,7 +72,6 @@ private:
     const QString m_baseTarget;
     FileUtils *const m_fileUtils;
     StringUtils *const m_stringUtils;
-    CMakeUtils *const m_cmakeUtils;
     ScriptModel *const m_scriptModel;
     const QString m_externalEditor;
     const QString m_externalFileExplorer;
