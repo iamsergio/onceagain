@@ -19,9 +19,10 @@
 
 #include "fileutils.h"
 
+#include <QFileInfo>
 #include <QFile>
 #include <QDebug>
-
+#include <QDir>
 #include <stdlib.h>
 
 #ifdef Q_OS_WIN
@@ -64,4 +65,28 @@ QString FileUtils::randomName(int length) const
     }
 
     return result;
+}
+
+QString FileUtils::firstCMakeFileFrom(const QString &path) const
+{
+    QFileInfo info(path);
+    if (!info.exists(path) || !info.isDir())
+        return {};
+
+    QDir dir(path);
+    const QStringList blockers = { ".git", ".svn" };
+
+    do {
+        if (QFileInfo::exists(QStringLiteral("%1/CMakeLists.txt").arg(dir.path())))
+            return path;
+
+        // For safety reasons, stop at the root of the repo
+        for (const QString &blocker : blockers) {
+            if (QFileInfo::exists(QStringLiteral("%1/%2").arg(dir.path(), blocker)))
+                return {};
+        }
+
+    } while(dir.cdUp());
+
+    return {};
 }

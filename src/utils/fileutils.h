@@ -29,6 +29,10 @@ public:
     explicit FileUtils(QObject *parent = 0);
     Q_INVOKABLE QString read(const QString &filename) const;
     Q_INVOKABLE QString randomName(int length) const;
+
+    /// @brief goes up the path until finding the first CMakeLists.txt
+    /// Stops if it finds a .git or .svn
+    Q_INVOKABLE QString firstCMakeFileFrom(const QString &path) const;
 };
 
 #endif
