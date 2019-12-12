@@ -77,16 +77,16 @@ QString FileUtils::firstCMakeFileFrom(const QString &path) const
     const QStringList blockers = { ".git", ".svn" };
 
     do {
-        if (QFileInfo::exists(QStringLiteral("%1/CMakeLists.txt").arg(dir.path())))
-            return path;
+        const QString candidate = QStringLiteral("%1/CMakeLists.txt").arg(dir.path());
+        if (QFileInfo::exists(candidate))
+            return candidate;
 
         // For safety reasons, stop at the root of the repo
         for (const QString &blocker : blockers) {
             if (QFileInfo::exists(QStringLiteral("%1/%2").arg(dir.path(), blocker)))
                 return {};
         }
-
-    } while(dir.cdUp());
+    } while (dir.cdUp());
 
     return {};
 }

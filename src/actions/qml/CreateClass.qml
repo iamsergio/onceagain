@@ -50,7 +50,7 @@ PythonAction {
     }
 
     AddToCMake {
-        cmakeFilePath: ""
+        cmakeFilePath: _file.firstCMakeFileFrom(_baseTarget)
         cmakeVariable: root.cmakeVariable
         cmakeLine: root.cmakeLine
     }
