@@ -23,6 +23,7 @@
 #include <kddockwidgets/MainWindow.h>
 #include <QMainWindow>
 
+class Action;
 class Script;
 class Kernel;
 class QTreeView;
@@ -43,6 +44,11 @@ public:
 
 protected:
     void contextMenuEvent(QContextMenuEvent *ev) override;
+
+private Q_SLOTS:
+    void onPropertyChanged();
+Q_SIGNALS:
+    void propertyChanged(Action*);
 
 private:
     void openFileExplorer(QString path);

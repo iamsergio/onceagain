@@ -97,6 +97,11 @@ public:
         return m_prop.read(m_action);
     }
 
+    void refresh()
+    {
+        QTableWidgetItem::setData(Qt::DisplayRole, m_prop.read(m_action).toString());
+    }
+
     QMetaProperty m_prop;
     Action *const m_action;
 };
@@ -224,6 +229,11 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *ev)
     });
 
     menu.exec(QCursor::pos());
+}
+
+void MainWindow::onPropertyChanged()
+{
+    Q_EMIT propertyChanged(qobject_cast<Action*>(sender()));
 }
 
 void MainWindow::openFileExplorer(QString path)
@@ -429,18 +439,32 @@ void MainWindow::setupPropertyTable(Script *script)
     if (!script)
         return;
 
-    QList<QMetaProperty> properties = script->configurableProperties();
+    QList<QMetaProperty> properties = script->allProperties();
     m_propertyTable->setRowCount(properties.size());
     int row = 0;
     for (auto prop : properties) {
-        auto item = new QTableWidgetItem(prop.name());
-        item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable); // Not editable
-        m_propertyTable->setItem(row, 0, item);
-        item = new TableWidgetItem(prop, script->rootAction());
+        auto labelItem = new QTableWidgetItem(prop.name());
+        labelItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable); // Not editable
+        m_propertyTable->setItem(row, 0, labelItem);
+        TableWidgetItem *valueItem = new TableWidgetItem(prop, script->rootAction());
         if (!prop.isWritable() || prop.type() == QVariant::Bool) {
-            item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable); // Not editable
+            valueItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable); // Not editable
         }
-        m_propertyTable->setItem(row, 1, item);
+        m_propertyTable->setItem(row, 1, valueItem);
+
+        QMetaMethod signalMethod = prop.notifySignal();
+        if (signalMethod.isValid()) {
+            const int methodIndex = metaObject()->indexOfMethod("onPropertyChanged()");
+            QMetaMethod slotMethod = metaObject()->method(methodIndex);
+            QObject::connect(script->rootAction(), signalMethod, this, slotMethod);
+
+            connect(this, &MainWindow::propertyChanged, this, [this, script, valueItem] (Action *action) {
+                if (action == script->rootAction()) {
+                    valueItem->refresh();
+                }
+            });
+        }
+
         ++row;
     }
 }
