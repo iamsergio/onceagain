@@ -22,6 +22,7 @@ PythonAction {
 
     property string cmakeliststxt: _file.firstCMakeFileFrom(_baseTarget)
     property string cmakeVariable: _style.defaultCMakeVariable
+    readonly property alias cmakeLine: cmakeAction.cmakeLine
 
     hiddenProperties: ["template", "camelCaseFileName",
                        "licenseHeader", "ctorArguments", "includes", "explicit",
@@ -50,6 +51,7 @@ PythonAction {
     }
 
     AddToCMake {
+        id: cmakeAction
         cmakeFilePath: root.cmakeliststxt
         cmakeVariable: root.cmakeVariable
         cmakeLine: _style.defaultCMakeLine.arg(root.cppFileName)
