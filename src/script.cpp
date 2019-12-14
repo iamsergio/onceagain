@@ -51,19 +51,31 @@ QString Script::name() const
 QList<QMetaProperty> Script::configurableProperties() const
 {
     QList<QMetaProperty> props;
-    if (!isValid())
-        return props;
-
     const QMetaObject *mo = m_rootAction->metaObject();
 
     QMetaProperty hiddenPropsProp = mo->property(mo->indexOfProperty("hiddenProperties"));
     const QStringList hiddenProps = hiddenPropsProp.read(m_rootAction).toStringList();
 
-    int numProperties = mo->propertyCount();
-    for (int i = 0; i < numProperties; ++i) {
-        QMetaProperty prop = mo->property(i);
+    QList<QMetaProperty> allProperties = this->allProperties();
+    for (const QMetaProperty &prop : allProperties) {
         if ((prop.isUser() || !prop.isStored()) && prop.isWritable() && !hiddenProps.contains(prop.name()))
             props.push_back(prop);
+    }
+
+    return props;
+}
+
+QList<QMetaProperty> Script::allProperties() const
+{
+    QList<QMetaProperty> props;
+    if (!isValid())
+        return props;
+
+    const QMetaObject *mo = m_rootAction->metaObject();
+    const int numProperties = mo->propertyCount();
+    props.reserve(numProperties);
+    for (int i = 0; i < numProperties; ++i) {
+        props.push_back(mo->property(i));
     }
     return props;
 }

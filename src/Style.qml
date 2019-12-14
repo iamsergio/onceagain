@@ -20,5 +20,5 @@ QtObject {
     property string defaultCMakeVariable: ""
 
     /// @brief the default cmake like to add to the cmake variable
-    property string defaultCMakeLine: ""
+    property string defaultCMakeLine: "    %1"
 }

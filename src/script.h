@@ -47,6 +47,8 @@ public:
     bool isValid() const;
     QString name() const;
     QList<QMetaProperty> configurableProperties() const;
+    QList<QMetaProperty> allProperties() const;
+
     Action * rootAction() const;
     QString description() const;
     QUrl sourceUrl() const;
