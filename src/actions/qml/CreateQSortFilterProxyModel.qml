@@ -6,7 +6,5 @@ CreateQObject {
     name: "QSortFilterProxyModel"
     description: "Creates a QSortFilterProxyModel"
     baseClass: "QSortFilterProxyModel"
-    cppTemplate: ":/templates/qt/models/QSortFilterProxyModel.cpp"
-    headerTemplate: ":/templates/qt/models/QSortFilterProxyModel.h"
     explicit: true
 }
