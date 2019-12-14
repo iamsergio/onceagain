@@ -60,6 +60,8 @@ public:
 
     bool baseTargetIsFolder() const;
 
+    QString styleName() const;
+
 Q_SIGNALS:
     void baseTargetChanged(const QString &);
     void currentActionChanged(Action*);
@@ -76,6 +78,7 @@ private:
     const QString m_externalEditor;
     const QString m_externalFileExplorer;
     const QString m_templatesFolder;
+    const QString m_styleName;
     Action *m_currentAction = nullptr;
 };
 

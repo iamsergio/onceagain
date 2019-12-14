@@ -112,7 +112,7 @@ void Script::setVisible(bool visible)
 
 QObject *Script::createStyleObject(QQmlEngine *engine) const
 {
-    QString styleFilename = qgetenv("ONCEAGAIN_STYLE");
+    QString styleFilename = m_kernel->styleName();
     if (styleFilename.isEmpty()) {
         styleFilename = ":/src/Style.qml";
     } else {

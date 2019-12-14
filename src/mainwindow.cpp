@@ -148,7 +148,14 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     bottomdock->setWidget(m_logViewer);
     bottomdock->resize(100, 150);
     auto maindock = new KDDockWidgets::DockWidget("main", KDDockWidgets::DockWidgetBase::Option_NotClosable);
-    maindock->setTitle(tr("Onceagain"));
+
+    const QString styleName = m_kernel->styleName();
+    if (styleName.isEmpty()) {
+        maindock->setTitle(tr("Onceagain"));
+    } else {
+        maindock->setTitle(QStringLiteral("Onceagain (%1)").arg(styleName));
+    }
+
     maindock->setWidget(mainwidget);
 
     addDockWidget(maindock, KDDockWidgets::Location_OnTop);

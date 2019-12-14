@@ -68,6 +68,17 @@ Kernel* Kernel::instance()
     return s_kernel;
 }
 
+static QString getStyleName()
+{
+    QString styleFilename = qgetenv("ONCEAGAIN_STYLE");
+    if (styleFilename.isEmpty()) {
+        return {};
+    } else {
+        styleFilename = styleFilename.replace(".qml", QString());
+        return styleFilename;
+    }
+}
+
 Kernel::Kernel(const QString &scriptsFolder, const QString &baseTarget, QObject *parent)
     : QObject(parent)
     , m_scriptsFolder(scriptsFolder)
@@ -78,6 +89,7 @@ Kernel::Kernel(const QString &scriptsFolder, const QString &baseTarget, QObject 
     , m_externalEditor(QString::fromUtf8(qgetenv("ONCE_AGAIN_EDITOR")))
     , m_externalFileExplorer(QString::fromUtf8(qgetenv("ONCE_AGAIN_FILE_EXPLORER")))
     , m_templatesFolder(m_scriptsFolder + QStringLiteral("/templates"))
+    , m_styleName(getStyleName())
 {
     registerTypes();
     ensureFoldersExist();
@@ -148,6 +160,11 @@ bool Kernel::baseTargetIsFolder() const
 {
     QFileInfo info(m_baseTarget);
     return info.isDir();
+}
+
+QString Kernel::styleName() const
+{
+    return m_styleName;
 }
 
 void Kernel::ensureFoldersExist()
