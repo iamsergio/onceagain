@@ -116,13 +116,18 @@ QObject *Script::createStyleObject(QQmlEngine *engine) const
     if (styleFilename.isEmpty()) {
         styleFilename = ":/src/Style.qml";
     } else {
-        styleFilename = QStringLiteral("%1/styles/%2").arg(m_kernel->scriptsFolder()).arg(styleFilename);
+        styleFilename = QStringLiteral("%1/styles/%2.qml").arg(m_kernel->scriptsFolder()).arg(styleFilename);
         if (!QFileInfo::exists(styleFilename))
             styleFilename = ":/src/Style.qml";
     }
 
     auto rootComponent = new QQmlComponent(engine, styleFilename);
-    return rootComponent->create();
+    QObject *style = rootComponent->create();
+    if (!style) {
+        qWarning() << "Failed to load style object!" << rootComponent->errorString();
+    }
+
+    return style;
 }
 
 void Script::loadSourceQml()
