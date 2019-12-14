@@ -18,3 +18,4 @@ mocs_compilation.cpp
 *.ninja
 /bin
 CMakeLists.txt.user
+install_manifest.txt
