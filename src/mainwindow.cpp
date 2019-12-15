@@ -462,11 +462,17 @@ void MainWindow::setupPropertyTable(Script *script)
             QMetaMethod slotMethod = metaObject()->method(methodIndex);
             QObject::connect(script->rootAction(), signalMethod, this, slotMethod);
 
-            connect(this, &MainWindow::propertyChanged, this, [this, script, valueItem] (Action *action) {
+            connect(this, &MainWindow::propertyChanged, this, [script, valueItem] (Action *action) {
                 if (action == script->rootAction()) {
                     valueItem->refresh();
                 }
             });
+        } else {
+            if (!prop.isConstant() && !QString(prop.typeName()).startsWith(QLatin1String("QQmlListProperty"))) {
+                qWarning() << Q_FUNC_INFO << "Property without notify signal" << prop.name()
+                           << "; script=" << script->name()
+                           << "; type=" << prop.typeName();
+            }
         }
 
         ++row;
