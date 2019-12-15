@@ -181,16 +181,24 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     auto fileMenu = new QMenu(tr("File"));
     auto viewsMenu = new QMenu(tr("Views"));
     auto toolsMenu = new QMenu(tr("Tools"));
+    auto optionsMenu = new QMenu(tr("Options"));
     auto aboutMenu = new QMenu(tr("About"));
     menubar->addMenu(fileMenu);
     menubar->addMenu(viewsMenu);
     menubar->addMenu(toolsMenu);
+    menubar->addMenu(optionsMenu);
     menubar->addMenu(aboutMenu);
     auto newAction = fileMenu->addAction(tr("New script..."));
     auto newFolderAction = fileMenu->addAction(tr("New script folder..."));
     auto reloadAction = fileMenu->addAction(tr("Reload"));
     reloadAction->setShortcut(QKeySequence(QStringLiteral("F5")));
     auto quitAction = fileMenu->addAction(tr("Quit"));
+
+    auto toggleShowReadonly = optionsMenu->addAction(tr("Show Readonly"));
+    toggleShowReadonly->setCheckable(true);
+    toggleShowReadonly->setChecked(false);
+    connect(toggleShowReadonly, &QAction::toggled, this, &MainWindow::setShowReadonlyProperties);
+        onScriptSelected();
     auto openScriptsDir = toolsMenu->addAction(tr("Open scripts dir..."));
     auto openTemplateDir = toolsMenu->addAction(tr("Open templates dir..."));
     newAction->setIcon(QIcon::fromTheme("document-new"));
@@ -234,6 +242,14 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *ev)
 void MainWindow::onPropertyChanged()
 {
     Q_EMIT propertyChanged(qobject_cast<Action*>(sender()));
+}
+
+void MainWindow::setShowReadonlyProperties(bool show)
+{
+    if (m_showReadonlyProperties != show) {
+        m_showReadonlyProperties = show;
+        onScriptSelected(); // reload;
+    }
 }
 
 void MainWindow::openFileExplorer(QString path)
@@ -439,7 +455,8 @@ void MainWindow::setupPropertyTable(Script *script)
     if (!script)
         return;
 
-    QList<QMetaProperty> properties = script->allProperties();
+    QList<QMetaProperty> properties = m_showReadonlyProperties ? script->allProperties()
+                                                               : script->configurableProperties();
     m_propertyTable->setRowCount(properties.size());
     int row = 0;
     for (auto prop : properties) {

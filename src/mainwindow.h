@@ -51,6 +51,7 @@ Q_SIGNALS:
     void propertyChanged(Action*);
 
 private:
+    void setShowReadonlyProperties(bool);
     void openFileExplorer(QString path);
     void openTemplatesDir();
     void openScriptsDir();
@@ -74,6 +75,7 @@ private:
     QLabel *const m_descriptionLabel;
     QLabel *const m_baseTargetLabel;
     QTextEdit *const m_logViewer;
+    bool m_showReadonlyProperties = false;
 };
 
 #endif
