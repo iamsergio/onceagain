@@ -148,6 +148,19 @@ void Action::setVisible(bool visible)
     Q_EMIT visibleChanged(m_visible);
 }
 
+bool Action::isDebug() const
+{
+    return m_isDebug;
+}
+
+void Action::setIsDebug(bool is)
+{
+    if (m_isDebug != is) {
+        m_isDebug = is;
+        Q_EMIT isDebugChanged();
+    }
+}
+
 bool Action::canExecute() const
 {
     return m_canExecute;

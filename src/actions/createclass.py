@@ -14,6 +14,7 @@ def execute_action():
     ctorArguments = get_property('ctorArguments')
     implCtorArguments = get_property('implCtorArguments')
     ctorInitList = get_property('ctorInitList')
+    isDebug = get_property('isDebug')
 
     # Create the header file:
 
@@ -43,7 +44,9 @@ def execute_action():
     if namespace:
         header_lines.append('}\n')
 
-    f = open(baseTarget + headerFileName, 'w')
+    absoluteHeaderFileName = baseTarget + headerFileName
+
+    f = open(absoluteHeaderFileName, 'w')
     f.writelines(header_lines)
     f.close()
 
@@ -61,9 +64,14 @@ def execute_action():
 
     cpp_lines.append('\n')
 
-    f = open(baseTarget + cppFileName, 'w')
+    absoluteCppFileName = baseTarget + cppFileName
+    f = open(absoluteCppFileName, 'w')
     f.writelines(cpp_lines)
     f.close()
+
+    if isDebug:
+        print("createclass.py: Created " + absoluteCppFileName)
+        print("createclass.py: Created " + absoluteHeaderFileName)
 
     return True
 

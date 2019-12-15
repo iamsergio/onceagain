@@ -35,6 +35,7 @@ class Action : public QObject
     Q_PROPERTY(QStringList hiddenProperties READ hiddenProperties WRITE setHiddenProperties NOTIFY hiddenPropertiesChanged)
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
     Q_PROPERTY(bool canExecute READ canExecute WRITE setCanExecute NOTIFY canExecuteChanged)
+    Q_PROPERTY(bool isDebug READ isDebug NOTIFY isDebugChanged)
     Q_CLASSINFO("DefaultProperty", "childActions")
 public:
     explicit Action(QObject *parent = nullptr);
@@ -66,7 +67,11 @@ public:
     bool visible() const;
     void setVisible(bool visible);
 
+    bool isDebug() const;
+    void setIsDebug(bool);
+
 Q_SIGNALS:
+    void isDebugChanged();
     void nameChanged();
     void abortIfPreviousFailedChanged();
     void descriptionChanged();
@@ -77,6 +82,7 @@ Q_SIGNALS:
     void canExecuteChanged(bool);
 
 private:
+    bool m_isDebug = false;
     bool m_canExecute = true;
     Action *m_abortIfPreviousFailed = nullptr;
     QString m_name;
