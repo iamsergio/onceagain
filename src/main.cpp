@@ -64,6 +64,11 @@ int main(int argv, char **argc)
                                                            : QStringLiteral(".");
 
 
+    if (!QFileInfo::exists(baseTarget)) {
+        qWarning() << "Base target doesn't exist";
+        return -1;
+    }
+
     auto kernel = Kernel::create(scriptsFolderPath(), baseTarget);
     MainWindow mw(kernel);
     mw.show();
