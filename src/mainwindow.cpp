@@ -432,10 +432,16 @@ QString MainWindow::selectedFolder() const
 void MainWindow::onScriptSelected()
 {
     Script *script = selectedScript();
-    m_executeButton->setEnabled(script != nullptr);
     setupPropertyTable(script);
     updateDescription();
     updateBaseTargetLabel();
+
+    if (script) {
+        disconnect(m_updateExecuteButtonConnection);
+        m_updateExecuteButtonConnection = connect(script->rootAction(), &Action::canExecuteChanged,
+                                                  m_executeButton, &QWidget::setEnabled);
+        m_executeButton->setEnabled(script->rootAction()->canExecute());
+    }
 }
 
 void MainWindow::setupScriptView()
@@ -469,14 +475,16 @@ void MainWindow::setupPropertyTable(Script *script)
     for (auto prop : properties) {
         auto labelItem = new QTableWidgetItem(prop.name());
         const bool enabled = prop.isWritable();
-        const Qt::ItemFlags flags = enabled ? Qt::ItemIsEnabled | Qt::ItemIsSelectable
-                                            : Qt::NoItemFlags;
+        const Qt::ItemFlags labelFlags = enabled ? (Qt::ItemIsEnabled | Qt::ItemIsSelectable)
+                                                 : Qt::NoItemFlags;
 
-        labelItem->setFlags(flags); // Not editable
+        labelItem->setFlags(labelFlags); // Not editable
 
         m_propertyTable->setItem(row, 0, labelItem);
         TableWidgetItem *valueItem = new TableWidgetItem(prop, script->rootAction());
-        valueItem->setFlags(flags); // Not editable
+        const Qt::ItemFlags valueFlags = enabled ? (Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable)
+                                                 : Qt::NoItemFlags;
+        valueItem->setFlags(valueFlags); // Not editable
 
         m_propertyTable->setItem(row, 1, valueItem);
 

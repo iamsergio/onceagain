@@ -34,6 +34,7 @@ class Action : public QObject
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(QStringList hiddenProperties READ hiddenProperties WRITE setHiddenProperties NOTIFY hiddenPropertiesChanged)
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
+    Q_PROPERTY(bool canExecute READ canExecute WRITE setCanExecute NOTIFY canExecuteChanged)
     Q_CLASSINFO("DefaultProperty", "childActions")
 public:
     explicit Action(QObject *parent = nullptr);
@@ -57,6 +58,9 @@ public:
     QUrl defaultBaseTarget() const;
     void setDefaultBaseTarget(const QUrl &);
 
+    bool canExecute() const;
+    void setCanExecute(bool);
+
     virtual bool execute();
 
     bool visible() const;
@@ -70,9 +74,10 @@ Q_SIGNALS:
     void hiddenPropertiesChanged();
     void defaultBaseTargetChanged();
     void visibleChanged(bool);
+    void canExecuteChanged(bool);
 
 private:
-    bool canExecute() const;
+    bool m_canExecute = true;
     Action *m_abortIfPreviousFailed = nullptr;
     QString m_name;
     QString m_description;

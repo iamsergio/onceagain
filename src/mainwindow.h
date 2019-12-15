@@ -76,6 +76,7 @@ private:
     QLabel *const m_baseTargetLabel;
     QTextEdit *const m_logViewer;
     bool m_showReadonlyProperties = false;
+    QMetaObject::Connection m_updateExecuteButtonConnection;
 };
 
 #endif

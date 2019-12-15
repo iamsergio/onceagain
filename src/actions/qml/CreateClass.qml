@@ -35,6 +35,7 @@ PythonAction {
     readonly property string includeGuard: className.toUpperCase()
     readonly property string baseTarget: _baseTarget
 
+    canExecute: className.length > 0
     pythonFileName: "createclass.py"
 
     function includesText() {
