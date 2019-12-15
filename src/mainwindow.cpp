@@ -170,7 +170,7 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
 
     addDockWidget(maindock, KDDockWidgets::Location_OnTop);
     addDockWidget(bottomdock, KDDockWidgets::Location_OnBottom);
-    addDockWidget(descriptiondock, KDDockWidgets::Location_OnTop, bottomdock);
+    //addDockWidget(descriptiondock, KDDockWidgets::Location_OnTop, bottomdock, KDDockWidgets::AddingOption_StartHidden); // generates KDDockWidgets warnings. To fix there first.
 
     setupScriptView();
     onScriptSelected();
@@ -211,6 +211,7 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     newAction->setShortcut(QKeySequence(QStringLiteral("ctrl+N")));
     reloadAction->setIcon(QIcon::fromTheme("view-refresh"));
 
+    viewsMenu->addAction(descriptiondock->toggleAction());
     viewsMenu->addAction(bottomdock->toggleAction());
 
     quitAction->setIcon(QIcon::fromTheme("application-exit"));
