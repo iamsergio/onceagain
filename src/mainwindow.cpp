@@ -444,12 +444,16 @@ void MainWindow::setupPropertyTable(Script *script)
     int row = 0;
     for (auto prop : properties) {
         auto labelItem = new QTableWidgetItem(prop.name());
-        labelItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable); // Not editable
+        const bool enabled = prop.isWritable();
+        const Qt::ItemFlags flags = enabled ? Qt::ItemIsEnabled | Qt::ItemIsSelectable
+                                            : Qt::NoItemFlags;
+
+        labelItem->setFlags(flags); // Not editable
+
         m_propertyTable->setItem(row, 0, labelItem);
         TableWidgetItem *valueItem = new TableWidgetItem(prop, script->rootAction());
-        if (!prop.isWritable() || prop.type() == QVariant::Bool) {
-            valueItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable); // Not editable
-        }
+        valueItem->setFlags(flags); // Not editable
+
         m_propertyTable->setItem(row, 1, valueItem);
 
         QMetaMethod signalMethod = prop.notifySignal();
