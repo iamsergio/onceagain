@@ -135,18 +135,23 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     connect(m_propertyTable, &QTableWidget::itemDoubleClicked, this, &MainWindow::onPropertyCellDoubleClicked);
 
     m_executeButton = new QPushButton(tr("Execute script"));
-    auto groupBox = new QGroupBox(tr("Description"));
-    groupBox->setMinimumWidth(300);
-    auto boxLayout = new QVBoxLayout();
-    groupBox->setLayout(boxLayout);
+
+    // Description dock widget widget:
+    auto descriptionWidget = new QGroupBox();
+    descriptionWidget->setMinimumWidth(300);
+    auto boxLayout = new QVBoxLayout(descriptionWidget);
     boxLayout->addWidget(m_descriptionLabel);
 
     m_propertyTable->setColumnCount(2);
     layout->addWidget(m_scriptView);
     layout->addWidget(m_propertyTable);
-    layout->addWidget(groupBox);
     outterLayout->addWidget(m_executeButton);
     show();
+
+    auto descriptiondock = new KDDockWidgets::DockWidget("description");
+    descriptiondock->setTitle(tr("Description"));
+    descriptiondock->setWidget(descriptionWidget);
+    descriptiondock->resize(100, 150);
 
     auto bottomdock = new KDDockWidgets::DockWidget("log");
     bottomdock->setTitle(tr("Log"));
@@ -165,6 +170,7 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
 
     addDockWidget(maindock, KDDockWidgets::Location_OnTop);
     addDockWidget(bottomdock, KDDockWidgets::Location_OnBottom);
+    addDockWidget(descriptiondock, KDDockWidgets::Location_OnTop, bottomdock);
 
     setupScriptView();
     onScriptSelected();
