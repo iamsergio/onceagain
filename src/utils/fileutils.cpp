@@ -93,9 +93,11 @@ QString FileUtils::firstCMakeFileFrom(const QString &path) const
 
 QString FileUtils::relativePathFrom(const QString &path, QString relativeTo) const
 {
+    if (relativeTo.isEmpty())
+        return {};
+
     QFileInfo info(path);
     QFileInfo relativeToInfo(relativeTo);
-
 
     if (!relativeToInfo.exists()) {
         qWarning() << Q_FUNC_INFO << "Path doesn't exist" << relativeTo;
