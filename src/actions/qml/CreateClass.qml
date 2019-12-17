@@ -34,6 +34,7 @@ PythonAction {
                                                               : ""
     readonly property string includeGuard: className.toUpperCase()
     readonly property string baseTarget: _baseTarget
+    readonly property string absoluteCppFileName: _baseTarget + '/' + cppFileName
 
     canExecute: className.length > 0
     pythonFileName: "createclass.py"
@@ -55,6 +56,6 @@ PythonAction {
         id: cmakeAction
         cmakeFilePath: root.cmakeliststxt
         cmakeVariable: root.cmakeVariable
-        cmakeLine: _style.defaultCMakeLine.arg(root.cppFileName)
+        cmakeLine: _style.defaultCMakeLine.arg(_file.relativePathFrom(root.absoluteCppFileName, cmakeFilePath))
     }
 }

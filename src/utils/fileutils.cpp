@@ -96,10 +96,6 @@ QString FileUtils::relativePathFrom(const QString &path, QString relativeTo) con
     QFileInfo info(path);
     QFileInfo relativeToInfo(relativeTo);
 
-    if (!info.exists()) {
-        qWarning() << Q_FUNC_INFO << "Path doesn't exist" << path;
-        return {};
-    }
 
     if (!relativeToInfo.exists()) {
         qWarning() << Q_FUNC_INFO << "Path doesn't exist" << relativeTo;
