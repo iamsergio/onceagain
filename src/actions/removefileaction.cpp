@@ -39,7 +39,7 @@ void RemoveFileAction::setFileName(const QString &fileName)
     }
 }
 
-bool RemoveFileAction::execute()
+bool RemoveFileAction::execute_Impl()
 {
     qDebug() << "Removing" << m_fileName;
     if (QFile::exists(m_fileName) && !QFile::remove(m_fileName)) {

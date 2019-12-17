@@ -35,11 +35,10 @@ Q_SIGNALS:
     void fileNameChanged();
 
 protected:
-    bool execute() override;
+    bool execute_Impl() override;
 
 private:
     QString m_fileName;
-
 };
 
 #endif

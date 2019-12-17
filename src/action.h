@@ -62,7 +62,7 @@ public:
     bool canExecute() const;
     void setCanExecute(bool);
 
-    virtual bool execute();
+    bool execute();
 
     bool visible() const;
     void setVisible(bool visible);
@@ -82,6 +82,9 @@ Q_SIGNALS:
     void canExecuteChanged(bool);
 
 private:
+
+    virtual bool execute_Impl();
+
     bool m_isDebug = false;
     bool m_canExecute = true;
     Action *m_abortIfPreviousFailed = nullptr;

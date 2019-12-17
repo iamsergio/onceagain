@@ -42,7 +42,7 @@ Q_SIGNALS:
     void copyFromChanged();
 
 protected:
-    bool execute() override;
+    bool execute_Impl() override;
 
 private:
     QString m_folderName;

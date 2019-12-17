@@ -53,7 +53,7 @@ QString RunCommand::workingDirectory() const
     return m_workingDirectory;
 }
 
-bool RunCommand::execute()
+bool RunCommand::execute_Impl()
 {
     if (m_command.isEmpty()) {
         qWarning() << Q_FUNC_INFO << "Command is empty";

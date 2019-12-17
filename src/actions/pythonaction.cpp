@@ -27,7 +27,7 @@ void PythonAction::setPythonFileName(const QString &pythonFileName)
     Q_EMIT pythonFileNameChanged();
 }
 
-bool PythonAction::execute()
+bool PythonAction::execute_Impl()
 {
     if (name().isEmpty()) {
         qWarning() << "PythonAction requires a name. Otherwise we don't know which py file to run";

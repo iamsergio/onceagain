@@ -69,7 +69,7 @@ void CreateFileAction::setCopyFrom(const QString &copy)
     }
 }
 
-bool CreateFileAction::execute()
+bool CreateFileAction::execute_Impl()
 {
     if (m_copyFrom.isEmpty()) {
         return createNewFile();

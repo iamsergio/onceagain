@@ -54,7 +54,7 @@ void CreateFolderAction::setCopyFrom(const QUrl &copyFrom)
     }
 }
 
-bool CreateFolderAction::execute()
+bool CreateFolderAction::execute_Impl()
 {
     if (m_folderName.isEmpty()) {
         qWarning() << Q_FUNC_INFO << "foldername is empty";

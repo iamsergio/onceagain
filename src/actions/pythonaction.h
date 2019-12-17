@@ -20,7 +20,7 @@ Q_SIGNALS:
     void pythonFileNameChanged();
 
 protected:
-    bool execute() override final;
+    bool execute_Impl() override final;
 
 private:
     QByteArray readPythonFile(const QString &filename) const;

@@ -49,7 +49,7 @@ Q_SIGNALS:
     void useCamelCaseFileNameChanged();
 
 protected:
-    bool execute() override;
+    bool execute_Impl() override;
 
 private:
     bool createNewFile();

@@ -21,6 +21,7 @@
 
 #include <QDebug>
 #include <QMetaMethod>
+#include <QScopeGuard>
 
 Action::Action(QObject *parent)
     : QObject(parent)
@@ -104,7 +105,22 @@ bool Action::execute()
         return false;
 
     bool success = true;
-    int numActionsRun = 0;
+    auto guard = qScopeGuard([this, &success] {
+        if (success) {
+            qDebug() << QString("%1: executed successfully").arg(name());
+        } else {
+            qWarning() << QString("%1: failed to run action!").arg(name());
+        }
+    });
+
+
+    if (!execute_Impl()) {
+        // First, execute our own action.
+        success = false;
+        return false;
+    }
+
+    // Then, execute our children's actions
     for (Action *action : m_childActions) {
         if (!action->enabled())
             continue;
@@ -117,18 +133,7 @@ bool Action::execute()
         }
 
         m_inErrorState = !action->execute();
-        ++numActionsRun;
         success &= !m_inErrorState;
-    }
-
-    if (success) {
-        if (numActionsRun > 0) {
-            qDebug() << QString("%1: executed successfully").arg(name());
-        } else {
-            qDebug() << "No action was run";
-        }
-    } else {
-        qWarning() << QString("%1: failed to run action!").arg(name());
     }
 
     return success;
@@ -190,4 +195,9 @@ void Action::setDefaultBaseTarget(const QUrl &url)
         m_defaultBaseTarget = url;
         Q_EMIT defaultBaseTargetChanged();
     }
+}
+
+bool Action::execute_Impl()
+{
+    return true;
 }

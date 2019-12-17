@@ -42,7 +42,7 @@ Q_SIGNALS:
     void processFinished(int exitCode);
 
 protected:
-    bool execute() override;
+    bool execute_Impl() override;
 
 private:
     QString m_command;
