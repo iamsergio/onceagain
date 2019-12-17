@@ -28,7 +28,7 @@ def execute_action():
             newlines.append(lineToAdd + '\n')
 
     hasChanges = newlines != lines
-    if hasChanges
+    if hasChanges:
         f = open(cmakeFilePath, 'w')
         f.writelines(newlines)
         f.close()
