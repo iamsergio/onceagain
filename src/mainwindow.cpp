@@ -204,7 +204,13 @@ MainWindow::MainWindow(Kernel *kernel, QWidget *parent)
     toggleShowReadonly->setCheckable(true);
     toggleShowReadonly->setChecked(false);
     connect(toggleShowReadonly, &QAction::toggled, this, &MainWindow::setShowReadonlyProperties);
-        onScriptSelected();
+
+    auto toggleDebug = optionsMenu->addAction(tr("Debug"));
+    toggleDebug->setChecked(m_debug);
+    toggleDebug->setCheckable(true);
+    connect(toggleDebug, &QAction::toggled, this, &MainWindow::setIsDebug);
+
+    onScriptSelected();
     auto openScriptsDir = toolsMenu->addAction(tr("Open scripts dir..."));
     auto openTemplateDir = toolsMenu->addAction(tr("Open templates dir..."));
     newAction->setIcon(QIcon::fromTheme("document-new"));
@@ -437,10 +443,12 @@ void MainWindow::onScriptSelected()
     updateBaseTargetLabel();
 
     if (script) {
+        Action *action = script->rootAction();
+        action->setIsDebug(m_debug);
         disconnect(m_updateExecuteButtonConnection);
-        m_updateExecuteButtonConnection = connect(script->rootAction(), &Action::canExecuteChanged,
+        m_updateExecuteButtonConnection = connect(action, &Action::canExecuteChanged,
                                                   m_executeButton, &QWidget::setEnabled);
-        m_executeButton->setEnabled(script->rootAction()->canExecute());
+        m_executeButton->setEnabled(action->canExecute());
     }
 }
 
@@ -509,4 +517,19 @@ void MainWindow::setupPropertyTable(Script *script)
 
         ++row;
     }
+}
+
+void MainWindow::setIsDebug(bool is)
+{
+    if (is != m_debug) {
+        m_debug = is;
+        if (auto script = selectedScript()) {
+            script->rootAction()->setIsDebug(is);
+        }
+    }
+}
+
+void MainWindow::reloadSelectedScript()
+{
+    onScriptSelected();
 }

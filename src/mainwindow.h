@@ -51,6 +51,8 @@ Q_SIGNALS:
     void propertyChanged(Action*);
 
 private:
+    void reloadSelectedScript();
+    void setIsDebug(bool);
     void setShowReadonlyProperties(bool);
     void openFileExplorer(QString path);
     void openTemplatesDir();
@@ -76,6 +78,7 @@ private:
     QLabel *const m_baseTargetLabel;
     QTextEdit *const m_logViewer;
     bool m_showReadonlyProperties = false;
+    bool m_debug = false;
     QMetaObject::Connection m_updateExecuteButtonConnection;
 };
 
