@@ -33,6 +33,10 @@ public:
     /// @brief goes up the path until finding the first CMakeLists.txt
     /// Stops if it finds a .git or .svn
     Q_INVOKABLE QString firstCMakeFileFrom(const QString &path) const;
+
+    /// @brief The absolute path which we're transforming into relative
+    /// @brief relativeTo the absolute path that contains @p path
+    Q_INVOKABLE QString relativePathFrom(const QString &path, QString relativeTo) const;
 };
 
 #endif

@@ -90,3 +90,28 @@ QString FileUtils::firstCMakeFileFrom(const QString &path) const
 
     return {};
 }
+
+QString FileUtils::relativePathFrom(const QString &path, QString relativeTo) const
+{
+    QFileInfo info(path);
+    QFileInfo relativeToInfo(relativeTo);
+
+    if (!info.exists()) {
+        qWarning() << Q_FUNC_INFO << "Path doesn't exist" << path;
+        return {};
+    }
+
+    if (!relativeToInfo.exists()) {
+        qWarning() << Q_FUNC_INFO << "Path doesn't exist" << relativeTo;
+        return {};
+    }
+
+    QDir relativeToDir(relativeToInfo.isFile() ? relativeToInfo.path()
+                                               : relativeTo);
+
+    if (info.absoluteFilePath().startsWith(relativeToDir.path())) {
+        return info.absoluteFilePath().remove(0, relativeToDir.path().size() + 1); // +1 to remove the slash
+    }
+
+    return {};
+}
