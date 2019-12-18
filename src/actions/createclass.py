@@ -55,7 +55,7 @@ def execute_action():
 
     cpp_lines.append('#include "%s"\n\n' % headerFileName)
     if namespace:
-        cpp_lines.append('using namespace %s\n\n' % namespace)
+        cpp_lines.append('using namespace %s;\n\n' % namespace)
 
     cpp_lines.append('%s::%s(%s)\n' % (className, className, implCtorArguments))
     if ctorInitList:
