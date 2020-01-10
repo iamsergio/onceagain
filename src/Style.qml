@@ -21,4 +21,7 @@ QtObject {
 
     /// @brief the default cmake like to add to the cmake variable
     property string defaultCMakeLine: "    %1"
+
+    /// @brief the default namespace to uses
+    property string defaultNamespace: ""
 }

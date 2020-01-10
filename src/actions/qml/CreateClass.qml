@@ -17,7 +17,7 @@ PythonAction {
     property string baseClass: ""
     property string ctorInitList: ""
     property bool isQObject: false
-    property string namespace: ""
+    property string namespace: _style.defaultNamespace
     property bool usesPragmaOnce: true
 
     property string cmakeliststxt: _file.firstCMakeFileFrom(_baseTarget)
